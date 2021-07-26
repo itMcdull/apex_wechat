@@ -28,7 +28,7 @@ class MyHomePage extends StatelessWidget {
         child: Container(
           width: 200,
           height: 200,
-          color: Colors.green,
+          color: Colors.blue,
           child: Center(
             child: Text(
               'Hello, MPFlutter!',

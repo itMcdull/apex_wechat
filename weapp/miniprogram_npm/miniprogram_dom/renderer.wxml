@@ -1,0 +1,155 @@
+<block wx:if="{{dom[root]}}"><template is="f{{dom[root].tag}}" data="{{dom,style,rt:dom[root],n:1}}" /></block>
+<template name="fdiv">
+    <view id="d_{{rt.id}}" bindtap="{{rt.onclick ? 'ontap' : ''}}" style="{{rt.style}};{{style}}">
+        <block wx:key="*this" wx:for="{{rt.nodes}}">
+            <template is="f{{dom[item].tag === 'div' ? n : dom[item].tag}}" data="{{dom,rt:dom[item],n:n+1}}" />
+        </block>
+        <block wx:if="{rt.innerText}">{{rt.innerText}}</block>
+    </view>
+</template>
+<template name="f1">
+    <view id="d_{{rt.id}}" bindtap="{{rt.onclick ? 'ontap' : ''}}" style="{{rt.style}}">
+        <block wx:key="*this" wx:for="{{rt.nodes}}">
+            <template is="f{{dom[item].tag === 'div' ? n : dom[item].tag}}" data="{{dom,rt:dom[item],n:n+1}}" />
+        </block>
+        <block wx:if="{rt.innerText}">{{rt.innerText}}</block>
+    </view>
+</template>
+<template name="f2">
+    <view id="d_{{rt.id}}" bindtap="{{rt.onclick ? 'ontap' : ''}}" style="{{rt.style}}">
+        <block wx:key="*this" wx:for="{{rt.nodes}}">
+            <template is="f{{dom[item].tag === 'div' ? n : dom[item].tag}}" data="{{dom,rt:dom[item],n:n+1}}" />
+        </block>
+        <block wx:if="{rt.innerText}">{{rt.innerText}}</block>
+    </view>
+</template>
+<template name="f3">
+    <view id="d_{{rt.id}}" bindtap="{{rt.onclick ? 'ontap' : ''}}" style="{{rt.style}}">
+        <block wx:key="*this" wx:for="{{rt.nodes}}">
+            <template is="f{{dom[item].tag === 'div' ? n : dom[item].tag}}" data="{{dom,rt:dom[item],n:n+1}}" />
+        </block>
+        <block wx:if="{rt.innerText}">{{rt.innerText}}</block>
+    </view>
+</template>
+<template name="f4">
+    <view id="d_{{rt.id}}" bindtap="{{rt.onclick ? 'ontap' : ''}}" style="{{rt.style}}">
+        <block wx:key="*this" wx:for="{{rt.nodes}}">
+            <template is="f{{dom[item].tag === 'div' ? n : dom[item].tag}}" data="{{dom,rt:dom[item],n:n+1}}" />
+        </block>
+        <block wx:if="{rt.innerText}">{{rt.innerText}}</block>
+    </view>
+</template>
+<template name="f5">
+    <view id="d_{{rt.id}}" bindtap="{{rt.onclick ? 'ontap' : ''}}" style="{{rt.style}}">
+        <block wx:key="*this" wx:for="{{rt.nodes}}">
+            <template is="f{{dom[item].tag === 'div' ? n : dom[item].tag}}" data="{{dom,rt:dom[item],n:n+1}}" />
+        </block>
+        <block wx:if="{rt.innerText}">{{rt.innerText}}</block>
+    </view>
+</template>
+<template name="f6">
+    <view id="d_{{rt.id}}" bindtap="{{rt.onclick ? 'ontap' : ''}}" style="{{rt.style}}">
+        <block wx:key="*this" wx:for="{{rt.nodes}}">
+            <template is="f{{dom[item].tag === 'div' ? n : dom[item].tag}}" data="{{dom,rt:dom[item],n:n+1}}" />
+        </block>
+        <block wx:if="{rt.innerText}">{{rt.innerText}}</block>
+    </view>
+</template>
+<template name="f7">
+    <view id="d_{{rt.id}}" bindtap="{{rt.onclick ? 'ontap' : ''}}" style="{{rt.style}}">
+        <block wx:key="*this" wx:for="{{rt.nodes}}">
+            <template is="f{{dom[item].tag === 'div' ? n : dom[item].tag}}" data="{{dom,rt:dom[item],n:n+1}}" />
+        </block>
+        <block wx:if="{rt.innerText}">{{rt.innerText}}</block>
+    </view>
+</template>
+<template name="f8">
+    <view id="d_{{rt.id}}" bindtap="{{rt.onclick ? 'ontap' : ''}}" style="{{rt.style}}">
+        <block wx:key="*this" wx:for="{{rt.nodes}}">
+            <template is="f{{dom[item].tag === 'div' ? n : dom[item].tag}}" data="{{dom,rt:dom[item],n:n+1}}" />
+        </block>
+        <block wx:if="{rt.innerText}">{{rt.innerText}}</block>
+    </view>
+</template>
+<template name="f9">
+    <view id="d_{{rt.id}}" bindtap="{{rt.onclick ? 'ontap' : ''}}" style="{{rt.style}}">
+        <block wx:key="*this" wx:for="{{rt.nodes}}">
+            <template is="f{{dom[item].tag === 'div' ? n : dom[item].tag}}" data="{{dom,rt:dom[item],n:n+1}}" />
+        </block>
+        <block wx:if="{rt.innerText}">{{rt.innerText}}</block>
+    </view>
+</template>
+<template name="f10">
+    <view id="d_{{rt.id}}" bindtap="{{rt.onclick ? 'ontap' : ''}}" style="{{rt.style}}">
+        <block wx:key="*this" wx:for="{{rt.nodes}}">
+            <template is="f{{dom[item].tag === 'div' ? n : dom[item].tag}}" data="{{dom,rt:dom[item],n:n+1}}" />
+        </block>
+        <block wx:if="{rt.innerText}">{{rt.innerText}}</block>
+    </view>
+</template>
+<template name="f11">
+    <view id="d_{{rt.id}}" bindtap="{{rt.onclick ? 'ontap' : ''}}" style="{{rt.style}}">
+        <block wx:key="*this" wx:for="{{rt.nodes}}">
+            <template is="f{{dom[item].tag === 'div' ? n : dom[item].tag}}" data="{{dom,rt:dom[item],n:n+1}}" />
+        </block>
+        <block wx:if="{rt.innerText}">{{rt.innerText}}</block>
+    </view>
+</template>
+<template name="f12">
+    <view id="d_{{rt.id}}" bindtap="{{rt.onclick ? 'ontap' : ''}}" style="{{rt.style}}">
+        <block wx:key="*this" wx:for="{{rt.nodes}}">
+            <template is="f{{dom[item].tag === 'div' ? n : dom[item].tag}}" data="{{dom,rt:dom[item],n:n+1}}" />
+        </block>
+        <block wx:if="{rt.innerText}">{{rt.innerText}}</block>
+    </view>
+</template>
+<template name="f13">
+    <view id="d_{{rt.id}}" bindtap="{{rt.onclick ? 'ontap' : ''}}" style="{{rt.style}}">
+        <block wx:key="*this" wx:for="{{rt.nodes}}">
+            <template is="f{{dom[item].tag === 'div' ? n : dom[item].tag}}" data="{{dom,rt:dom[item],n:n+1}}" />
+        </block>
+        <block wx:if="{rt.innerText}">{{rt.innerText}}</block>
+    </view>
+</template>
+<template name="f14">
+    <view id="d_{{rt.id}}" bindtap="{{rt.onclick ? 'ontap' : ''}}" style="{{rt.style}}">
+        <block wx:key="*this" wx:for="{{rt.nodes}}">
+            <template is="f{{dom[item].tag === 'div' ? n : dom[item].tag}}" data="{{dom,rt:dom[item],n:n+1}}" />
+        </block>
+        <block wx:if="{rt.innerText}">{{rt.innerText}}</block>
+    </view>
+</template>
+<template name="f15">
+    <view id="d_{{id}}" bindtap="{{onclick ? 'ontap' : ''}}" style="{{style}}">
+        <block wx:key="*this" wx:for="{{nodes}}">
+            <renderer dom="{{dom}}" root="{{item}}" />
+        </block>
+        <block wx:if="{rt.innerText}">{{rt.innerText}}</block>
+    </view>
+</template>
+
+<template name="fcatchclick">
+    <view id="d_{{rt.id}}" catchtap="{{rt.onclick ? 'ontap' : ''}}" style="{{rt.style}}">
+        <block wx:key="*this" wx:for="{{rt.nodes}}">
+            <template is="f{{dom[item].tag === 'div' ? n : dom[item].tag}}" data="{{dom,rt:dom[item],n:n+1}}" />
+        </block>
+        <block wx:if="{rt.innerText}">{{rt.innerText}}</block>
+    </view>
+</template>
+<template name="fcatchmove">
+    <view id="d_{{rt.id}}" catchtap="{{rt.onclick ? 'ontap' : ''}}" catchtouchmove="catchmove" style="{{rt.style}}">
+        <block wx:key="*this" wx:for="{{rt.nodes}}">
+            <template is="f{{dom[item].tag === 'div' ? n : dom[item].tag}}" data="{{dom,rt:dom[item],n:n+1}}" />
+        </block>
+        <block wx:if="{rt.innerText}">{{rt.innerText}}</block>
+    </view>
+</template>
+<template name="fimg">
+    <image id="d_{{rt.id}}" style="{{rt.style}}" src="{{rt.src}}"></image>
+</template>
+<template name="fiframe">
+    <web-view id="d_{{rt.id}}" style="{{rt.style}}" src="{{rt.src}}"></web-view>
+</template>
+<template name="fvideo">
+    <video id="d_{{rt.id}}" style="{{rt.style}}" src="{{rt.src}}" controls="{{rt.controls}}" autoplay="{{rt.autoplay}}" loop="{{rt.loop}}" muted="{{rt.muted}}" poster="{{rt.poster}}"></video>
+</template>
