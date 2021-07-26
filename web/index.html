@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>template</title>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script src="https://cdn.jsdelivr.net/gh/mpflutter/mp_dom_runtime@master/mpdom.min.js"></script>
+    <script>
+        var { Engine, Page, BrowserApp } = MPDOM;
+        var engine = new Engine();
+        var dev = true;
+        if (dev) {
+            engine.initWithDebuggerServerAddr(new URL(window.location.href).hostname + ':9898');
+            engine.start();
+        }
+        else {
+            Engine.codeBlockWithCodePath('main.dart.js').then(function (codeBlock) {
+                engine.initWithCodeBlock(codeBlock);
+                engine.start();
+            });
+        }
+        var app = new BrowserApp(document.getElementById('root'), engine);
+        app.setupFirstPage({ route: new URL(window.location.href).searchParams.get('route') || '/' });
+    </script>
+</body>
+
+</html>
