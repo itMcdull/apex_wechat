@@ -39,19 +39,19 @@ packages:
   flutter:
     dependency: "direct main"
     description:
-      path: "."
+      path: "packages/flutter"
       ref: master
-      resolved-ref: "3523618ba4c4043a7afb4272f3dda69e5b98c6ae"
-      url: "https://github.com/mpflutter/flutter"
+      resolved-ref: e03dec68f624910e33ea7ea1e1764d925e319cff
+      url: "https://github.com/mpflutter/mpflutter"
     source: git
     version: "0.0.0"
   flutter_web_plugins:
     dependency: "direct overridden"
     description:
-      path: "."
+      path: "packages/flutter_web_plugins"
       ref: master
-      resolved-ref: b237fdb6fe443868d9ecc1a3c79b03ccc476fd88
-      url: "https://github.com/mpflutter/flutter_web_plugins"
+      resolved-ref: e03dec68f624910e33ea7ea1e1764d925e319cff
+      url: "https://github.com/mpflutter/mpflutter"
     source: git
     version: "0.0.0"
   glob:
@@ -85,10 +85,10 @@ packages:
   mpcore:
     dependency: "direct main"
     description:
-      path: "."
+      path: "packages/mpcore"
       ref: master
-      resolved-ref: "9e3580cbb71331ecad2a3445d1009b86f650068d"
-      url: "https://gitee.com/mpflutter/mpcore"
+      resolved-ref: e03dec68f624910e33ea7ea1e1764d925e319cff
+      url: "https://github.com/mpflutter/mpflutter"
     source: git
     version: "0.0.1"
   path:

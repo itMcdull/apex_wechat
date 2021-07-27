@@ -7,22 +7,27 @@ environment:
 dependencies:
   flutter:
     git:
-      url: https://github.com/mpflutter/flutter
+      url: https://github.com/mpflutter/mpflutter
+      path: packages/flutter
       ref: master
   mpcore:
     git:
-      url: https://github.com/mpflutter/mpcore
+      url: https://github.com/mpflutter/mpflutter
+      path: packages/mpcore
       ref: master
 dependency_overrides:
   flutter:
     git:
-      url: https://github.com/mpflutter/flutter
+      url: https://github.com/mpflutter/mpflutter
+      path: packages/flutter
       ref: master
   mpcore:
     git:
-      url: https://gitee.com/mpflutter/mpcore
+      url: https://github.com/mpflutter/mpflutter
+      path: packages/mpcore
       ref: master
   flutter_web_plugins:
     git:
-      url: https://github.com/mpflutter/flutter_web_plugins
+      url: https://github.com/mpflutter/mpflutter
+      path: packages/flutter_web_plugins
       ref: master
