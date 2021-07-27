@@ -15,7 +15,7 @@ PODS:
     - CocoaLumberjack (~> 3.0)
 
 DEPENDENCIES:
-  - MPIOSRuntime (from `https://github.com/mpflutter/mp_ios_runtime.git`)
+  - MPIOSRuntime (from `https://github.com/mpflutter/mp_ios_runtime.git`, branch `stable`)
   - SDWebImage (~> 5.11)
   - SDWebImageSVGKitPlugin
   - SVGKit (< 3.0.0)
@@ -30,6 +30,7 @@ SPEC REPOS:
 
 EXTERNAL SOURCES:
   MPIOSRuntime:
+    :branch: stable
     :git: https://github.com/mpflutter/mp_ios_runtime.git
 
 CHECKOUT OPTIONS:
@@ -45,6 +46,6 @@ SPEC CHECKSUMS:
   SDWebImageSVGKitPlugin: 8797e1c9b9baf80bd50d28e673e16a12359af1c9
   SVGKit: 652cdf7bef8bec8564d04a8511d3ab50c7595fac
 
-PODFILE CHECKSUM: 6daad2d5677a5a90c13a9322851ea5c04a893b38
+PODFILE CHECKSUM: 264d0e72c1706d2cc9395dcc3ba9784f9799400c
 
 COCOAPODS: 1.9.1
