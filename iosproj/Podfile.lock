@@ -34,7 +34,7 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   MPIOSRuntime:
-    :commit: 8f27dba98d7afe657c5480a66ce972f23c97b024
+    :commit: c73f8eda39064cf8ddda6244db8a187a01642cc5
     :git: https://github.com/mpflutter/mp_ios_runtime.git
 
 SPEC CHECKSUMS:
