@@ -24,6 +24,7 @@ class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MPScaffold(
+      name: 'Template',
       body: Center(
         child: Container(
           width: 200,
