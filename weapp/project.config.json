@@ -41,7 +41,7 @@
   "compileType": "miniprogram",
   "libVersion": "2.18.0",
   "appid": "wxafa7a4033dad4ef0",
-  "projectname": "sample_weapp",
+  "projectname": "template",
   "debugOptions": {
     "hidedInDevtools": []
   },

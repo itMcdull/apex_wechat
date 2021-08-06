@@ -10,7 +10,7 @@ App({
     else {
       engine.initWithCodeBlock(Engine.codeBlockWithFile('./main.dart.js'));
     }
-    const app = new WXApp('index', engine);
+    const app = new WXApp('pages/index/index', engine);
     global.app = app;
     engine.start();
   },

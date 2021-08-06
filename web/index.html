@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>template</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@6.8.1/swiper-bundle.min.css" />
 </head>
 
 <style>
@@ -20,7 +21,8 @@
 
 <body>
     <div id="root"></div>
-    <script src="https://cdn.jsdelivr.net/gh/mpflutter/mp_dom_runtime@stable/mpdom.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@6.8.1/swiper-bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/mpflutter/mp_dom_runtime@0.1.0/mpdom.min.js"></script>
     <script>
         var { Engine, Page, BrowserApp } = MPDOM;
         var engine = new Engine();
@@ -36,7 +38,7 @@
             });
         }
         var app = new BrowserApp(document.getElementById('root'), engine);
-        app.setupFirstPage({ route: new URL(window.location.href).searchParams.get('route') || '/' });
+        app.setupFirstPage();
     </script>
 </body>
 

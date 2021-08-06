@@ -202,6 +202,16 @@ var _Element = function () {
         });
     };
 
+    _Element.prototype.getFields = function getFields(fields) {
+        var _this2 = this;
+
+        return new Promise(function (res) {
+            wx.createSelectorQuery().in(_this2.controller.componentInstance.selectComponent("#renderer")).select("#d_" + _this2.hashCode).fields(fields).exec(function (result) {
+                res(result[0]);
+            });
+        });
+    };
+
     _Element.prototype.toCSSKey = function toCSSKey(str) {
         var snakeCase = str.replace(/[A-Z]/g, function (letter) {
             return "-" + letter.toLowerCase();
@@ -287,32 +297,32 @@ var MiniDom = function () {
     }
 
     MiniDom.prototype.markNeedsSetData = function markNeedsSetData() {
-        var _this2 = this;
+        var _this3 = this;
 
         if (this.needsSetData) return;
         this.needsSetData = true;
         wx.nextTick(function () {
             var data = {};
-            _this2.commands.forEach(function (command) {
+            _this3.commands.forEach(function (command) {
                 data["dom." + command.key] = command.value;
             });
-            _this2.setData(data);
-            _this2.commandPromises.forEach(function (it) {
+            _this3.setData(data);
+            _this3.commandPromises.forEach(function (it) {
                 return it(null);
             });
-            _this2.commands = [];
-            _this2.commandPromises = [];
-            _this2.needsSetData = false;
+            _this3.commands = [];
+            _this3.commandPromises = [];
+            _this3.needsSetData = false;
         });
     };
 
     MiniDom.prototype.pushCommand = function pushCommand(key, value) {
-        var _this3 = this;
+        var _this4 = this;
 
         this.commands.push({ key: key, value: value });
         this.markNeedsSetData();
         return new Promise(function (res) {
-            _this3.commandPromises.push(res);
+            _this4.commandPromises.push(res);
         });
     };
 

@@ -153,3 +153,15 @@
 <template name="fvideo">
     <video id="d_{{rt.id}}" style="{{rt.style}}" src="{{rt.src}}" controls="{{rt.controls}}" autoplay="{{rt.autoplay}}" loop="{{rt.loop}}" muted="{{rt.muted}}" poster="{{rt.poster}}"></video>
 </template>
+<template name="fcanvas">
+    <canvas id="d_{{rt.id}}" style="{{rt.style}}" type="2d"></canvas>
+</template>
+<template name="fswiper">
+    <swiper id="d_{{rt.id}}" style="{{rt.style}}" vertical="{{rt.vertical}}" circular="{{rt.circular}}">
+        <block wx:key="*this" wx:for="{{rt.nodes}}">
+            <swiper-item>
+                <template is="f{{dom[item].tag === 'div' ? n : dom[item].tag}}" data="{{dom,rt:dom[item],n:n+1}}" />
+            </swiper-item>
+        </block>
+    </swiper>
+</template>

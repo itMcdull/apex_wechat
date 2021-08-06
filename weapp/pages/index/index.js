@@ -1,2 +1,2 @@
 const WXPage = require("../../mpdom.min").WXPage;
-Page(new WXPage({ route: "/" }));
+Page(new WXPage());
