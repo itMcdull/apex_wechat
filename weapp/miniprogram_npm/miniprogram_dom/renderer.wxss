@@ -1,0 +1,3 @@
+.mp_text {
+    overflow:hidden;text-overflow:ellipsis;display:-webkit-box;font-size:11px;overflow-wrap:anywhere;word-break:break-all;word-wrap:break-word:white-space:pre-line;-webkit-box-orient:vertical;
+}

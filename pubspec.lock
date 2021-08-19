@@ -7,7 +7,7 @@ packages:
       name: async
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "2.8.1"
+    version: "2.8.2"
   characters:
     dependency: transitive
     description:
@@ -40,8 +40,8 @@ packages:
     dependency: "direct main"
     description:
       path: "packages/flutter"
-      ref: "0.1.1"
-      resolved-ref: "63ed9a578af897a6744c8e5f8c417ee5027880c5"
+      ref: "0.2.0"
+      resolved-ref: "865a8e607b68185bf6b58370660f049d618321b2"
       url: "https://github.com/mpflutter/mpflutter"
     source: git
     version: "0.0.0"
@@ -49,8 +49,8 @@ packages:
     dependency: "direct overridden"
     description:
       path: "packages/flutter_web_plugins"
-      ref: "0.1.1"
-      resolved-ref: "63ed9a578af897a6744c8e5f8c417ee5027880c5"
+      ref: "0.2.0"
+      resolved-ref: "865a8e607b68185bf6b58370660f049d618321b2"
       url: "https://github.com/mpflutter/mpflutter"
     source: git
     version: "0.0.0"
@@ -86,8 +86,8 @@ packages:
     dependency: "direct main"
     description:
       path: "packages/mpcore"
-      ref: "0.1.1"
-      resolved-ref: "63ed9a578af897a6744c8e5f8c417ee5027880c5"
+      ref: "0.2.0"
+      resolved-ref: "865a8e607b68185bf6b58370660f049d618321b2"
       url: "https://github.com/mpflutter/mpflutter"
     source: git
     version: "0.0.1"

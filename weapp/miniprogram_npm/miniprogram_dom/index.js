@@ -97,6 +97,31 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+var dictCSSKeys = {
+    position: 1,
+    top: 2,
+    left: 3,
+    width: 4,
+    height: 5,
+    "z-index": 6,
+    "border-radius": 7,
+    overflow: 8,
+    "background-color": 9,
+    display: 10,
+    "user-select": 11,
+    "-webkit-user-select": 12,
+    "text-align": 13,
+    "-webkit-line-clamp": 14,
+    opacity: 15,
+    "max-width": 16,
+    "max-height": 17
+};
+var dictCSSValues = {
+    absolute: "_1",
+    unset: "_2",
+    start: "_3"
+};
+
 var _Element = function () {
     function _Element(hashCode, controller, tag) {
         _classCallCheck(this, _Element);
@@ -109,8 +134,13 @@ var _Element = function () {
         this.nodes = [];
         this.nodesHash = [];
         global.miniDomEventHandlers = _Element.eventHandlers;
-        global.devicePixelRatio = wx.getSystemInfoSync().pixelRatio;
     }
+
+    _Element.prototype.setClass = function setClass(value) {
+        if (this.class === value) return;
+        this.class = value !== null && value !== void 0 ? value : "";
+        this.setAttribute("class", value !== null && value !== void 0 ? value : "");
+    };
 
     _Element.prototype.cloneNode = function cloneNode() {
         var deep = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
@@ -128,22 +158,58 @@ var _Element = function () {
         return clonedElement;
     };
 
+    _Element.prototype.mpCloneNode = function mpCloneNode() {
+        var clonedElement = this.controller.document.createElement(this.tag);
+        clonedElement.setStyle(this.currentStyle);
+        for (var key in this.attributes) {
+            clonedElement.setAttribute(key, this.attributes[key]);
+        }
+        clonedElement.setChildrenLight(this.nodes);
+        return clonedElement;
+    };
+
     _Element.prototype.setStyle = function setStyle(style) {
         var changed = false;
+        var changeCount = 0;
+        var changeKey = undefined;
         for (var key in style) {
             if (this.currentStyle[key] !== style[key]) {
                 this.currentStyle[key] = style[key];
                 changed = true;
+                changeCount++;
+                changeKey = key;
             }
         }
-        if (changed) {
-            var cssText = "";
-            for (var _key in this.currentStyle) {
-                var value = this.currentStyle[_key];
-                cssText += this.toCSSKey(_key) + ":" + value + ";";
+        if (changed && changeCount > 1) {
+            this.controller.pushCommand(this.hashCode + ".s", this.transformStyle(this.currentStyle));
+        } else if (changed && changeCount === 1) {
+            var cssKey = this.toCSSKey(changeKey);
+            if (dictCSSKeys[cssKey]) {
+                this.controller.pushCommand(this.hashCode + ".s." + dictCSSKeys[cssKey], this.transformCSSValue(this.currentStyle[changeKey]));
+            } else {
+                var transformedStyle = this.transformStyle(this.currentStyle);
+                this.controller.pushCommand(this.hashCode + ".s.other", transformedStyle["other"]);
             }
-            this.controller.pushCommand(this.hashCode + ".style", cssText);
         }
+    };
+
+    _Element.prototype.transformStyle = function transformStyle(style) {
+        var output = {};
+        for (var key in style) {
+            var cssKey = this.toCSSKey(key);
+            if (dictCSSKeys[cssKey]) {
+                output[dictCSSKeys[cssKey]] = this.transformCSSValue(style[key]);
+            } else {
+                if (!output["other"]) output["other"] = "";
+                output["other"] += this.toCSSKey(key) + ":" + style[key] + ";";
+            }
+        }
+        return output;
+    };
+
+    _Element.prototype.transformCSSValue = function transformCSSValue(value) {
+        var _a;
+        return (_a = dictCSSValues[value]) !== null && _a !== void 0 ? _a : value;
     };
 
     _Element.prototype.setAttribute = function setAttribute(name, value) {
@@ -160,10 +226,18 @@ var _Element = function () {
             newChild.parent = this;
             this.nodes.splice(refIndex, 0, newChild);
             this.nodesHash.splice(refIndex, 0, newChild.hashCode);
-            this.controller.pushCommand(this.hashCode + ".nodes", this.nodesHash);
+            this.controller.pushCommand(this.hashCode + ".n", this.nodesHash);
         } else {
             this.appendChild(newChild);
         }
+    };
+
+    _Element.prototype.setChildrenLight = function setChildrenLight(children) {
+        this.nodes = children;
+        this.nodesHash = children.map(function (it) {
+            return it.hashCode;
+        });
+        return this.controller.pushCommand(this.hashCode + ".n", this.nodesHash);
     };
 
     _Element.prototype.appendChild = function appendChild(child) {
@@ -173,7 +247,7 @@ var _Element = function () {
         child.parent = this;
         this.nodes.push(child);
         this.nodesHash.push(child.hashCode);
-        return this.controller.pushCommand(this.hashCode + ".nodes", this.nodesHash);
+        return this.controller.pushCommand(this.hashCode + ".n", this.nodesHash);
     };
 
     _Element.prototype.removeChild = function removeChild(child) {
@@ -182,7 +256,7 @@ var _Element = function () {
             child.parent = undefined;
             this.nodes.splice(refIndex, 1);
             this.nodesHash.splice(refIndex, 1);
-            this.controller.pushCommand(this.hashCode + ".nodes", this.nodesHash);
+            this.controller.pushCommand(this.hashCode + ".n", this.nodesHash);
         }
     };
 
@@ -195,6 +269,9 @@ var _Element = function () {
     _Element.prototype.getBoundingClientRect = function getBoundingClientRect() {
         var _this = this;
 
+        if (this.class) {
+            return this.getBoundingClientRectWithClass();
+        }
         return new Promise(function (res) {
             wx.createSelectorQuery().in(_this.controller.componentInstance.selectComponent("#renderer")).select("#d_" + _this.hashCode).boundingClientRect(function (result) {
                 res(result);
@@ -202,23 +279,51 @@ var _Element = function () {
         });
     };
 
-    _Element.prototype.getFields = function getFields(fields) {
+    _Element.prototype.getBoundingClientRectWithClass = function getBoundingClientRectWithClass() {
         var _this2 = this;
 
+        if (!_Element.classBoundingClientRectQuery[this.class]) {
+            _Element.classBoundingClientRectQuery[this.class] = wx.createSelectorQuery().in(this.controller.componentInstance.selectComponent("#renderer")).selectAll("." + this.class).boundingClientRect(function (result) {
+                if (result instanceof Array) {
+                    result.forEach(function (it) {
+                        var _a, _b;
+                        (_b = (_a = _Element.classBoundingClientRectCallback)[it.id]) === null || _b === void 0 ? void 0 : _b.call(_a, {
+                            width: it.width,
+                            height: it.height
+                        });
+                        delete _Element.classBoundingClientRectCallback[it.id];
+                    });
+                }
+            });
+            setTimeout(function () {
+                _Element.classBoundingClientRectQuery[_this2.class].exec();
+                delete _Element.classBoundingClientRectQuery[_this2.class];
+            }, 16);
+        }
         return new Promise(function (res) {
-            wx.createSelectorQuery().in(_this2.controller.componentInstance.selectComponent("#renderer")).select("#d_" + _this2.hashCode).fields(fields).exec(function (result) {
+            _Element.classBoundingClientRectCallback["d_" + _this2.hashCode] = res;
+        });
+    };
+
+    _Element.prototype.getFields = function getFields(fields) {
+        var _this3 = this;
+
+        return new Promise(function (res) {
+            wx.createSelectorQuery().in(_this3.controller.componentInstance.selectComponent("#renderer")).select("#d_" + _this3.hashCode).fields(fields).exec(function (result) {
                 res(result[0]);
             });
         });
     };
 
     _Element.prototype.toCSSKey = function toCSSKey(str) {
+        if (_Element.toCSSKeyCache[str]) return _Element.toCSSKeyCache[str];
         var snakeCase = str.replace(/[A-Z]/g, function (letter) {
             return "-" + letter.toLowerCase();
         });
         if (snakeCase.startsWith("webkit")) {
             snakeCase = "-" + snakeCase;
         }
+        _Element.toCSSKeyCache[str] = snakeCase;
         return snakeCase;
     };
 
@@ -265,6 +370,9 @@ var _Element = function () {
 }();
 
 _Element.eventHandlers = {};
+_Element.classBoundingClientRectQuery = {};
+_Element.classBoundingClientRectCallback = {};
+_Element.toCSSKeyCache = {};
 
 var _Document = function () {
     function _Document(controller) {
@@ -277,8 +385,20 @@ var _Document = function () {
     _Document.prototype.createElement = function createElement(tag) {
         var hashCode = _Document.nextElementHashCode.toString();
         _Document.nextElementHashCode++;
-        this.controller.pushCommand(hashCode, { id: hashCode, tag: tag });
+        if (tag !== "div") {
+            this.controller.pushCommand(hashCode, { id: hashCode, tag: tag });
+        } else {
+            this.controller.pushCommand(hashCode, { id: hashCode });
+        }
         return new _Element(hashCode, this.controller, tag);
+    };
+
+    _Document.prototype.awaitSetState = function awaitSetState() {
+        var _this4 = this;
+
+        return new Promise(function (res) {
+            _this4.controller.commandPromises.push(res);
+        });
     };
 
     return _Document;
@@ -297,33 +417,51 @@ var MiniDom = function () {
     }
 
     MiniDom.prototype.markNeedsSetData = function markNeedsSetData() {
-        var _this3 = this;
+        var _this5 = this;
 
         if (this.needsSetData) return;
         this.needsSetData = true;
-        wx.nextTick(function () {
+        setTimeout(function () {
             var data = {};
-            _this3.commands.forEach(function (command) {
-                data["dom." + command.key] = command.value;
+            _this5.commands.forEach(function (command) {
+                var myKey = "";
+                var parentKey = function () {
+                    var k = command.key.split(".");
+                    myKey = k.pop();
+                    return k.join(".");
+                }();
+                if (data["dom." + parentKey]) {
+                    data["dom." + parentKey][myKey] = command.value;
+                } else if (parentKey.endsWith(".s") && data["dom." + parentKey.replace(".s", "")] && data["dom." + parentKey.replace(".s", "")]["s"]) {
+                    data["dom." + parentKey.replace(".s", "")]["s"][myKey] = command.value;
+                } else {
+                    data["dom." + command.key] = command.value;
+                }
             });
-            _this3.setData(data);
-            _this3.commandPromises.forEach(function (it) {
+            // console.log("start set data", new Date().getTime());
+            // const a = new Date().getTime();
+            _this5.setData(data);
+            // const b = new Date().getTime();
+            // console.log(
+            //   new Date().getTime(),
+            //   "setdata",
+            //   b - a,
+            //   JSON.parse(JSON.stringify(data)),
+            //   JSON.stringify(data).length
+            // );
+            // console.log("setdata", b - a);
+            _this5.commandPromises.forEach(function (it) {
                 return it(null);
             });
-            _this3.commands = [];
-            _this3.commandPromises = [];
-            _this3.needsSetData = false;
-        });
+            _this5.commands = [];
+            _this5.commandPromises = [];
+            _this5.needsSetData = false;
+        }, 16);
     };
 
     MiniDom.prototype.pushCommand = function pushCommand(key, value) {
-        var _this4 = this;
-
         this.commands.push({ key: key, value: value });
         this.markNeedsSetData();
-        return new Promise(function (res) {
-            _this4.commandPromises.push(res);
-        });
     };
 
     return MiniDom;
@@ -331,10 +469,10 @@ var MiniDom = function () {
 
 Component({
     properties: {
-        style: { type: String }
+        s: { type: String }
     },
     data: {
-        dom: { body: { id: "body", tag: "div", style: "", nodes: [] } }
+        dom: { body: { id: "body", tag: "div", s: "", n: [] } }
     },
     lifetimes: {
         attached: function attached() {
