@@ -217,6 +217,11 @@ var _Element = function () {
         this.controller.pushCommand(this.hashCode + "." + name, value);
     };
 
+    _Element.prototype.removeAttribute = function removeAttribute(name) {
+        delete this.attributes[name];
+        this.controller.pushCommand(this.hashCode + "." + name, undefined);
+    };
+
     _Element.prototype.insertBefore = function insertBefore(newChild, refChild) {
         var refIndex = refChild ? this.nodes.indexOf(refChild) : -1;
         if (refIndex >= 0) {
@@ -363,6 +368,16 @@ var _Element = function () {
         set: function set(value) {
             _Element.eventHandlers[this.hashCode + ".onclick"] = value;
             this.controller.pushCommand(this.hashCode + ".onclick", value ? this.hashCode : undefined);
+        }
+    }, {
+        key: "oninput",
+        set: function set(value) {
+            _Element.eventHandlers[this.hashCode + ".oninput"] = value;
+        }
+    }, {
+        key: "onsubmit",
+        set: function set(value) {
+            _Element.eventHandlers[this.hashCode + ".onsubmit"] = value;
         }
     }]);
 

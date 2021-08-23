@@ -65,6 +65,7 @@ _copyWebSource(String hashCode) {
   indexFileContent =
       indexFileContent.replaceAll("'main.dart.js'", "'main.dart.js?$hashCode'");
   File("./build/index.html").writeAsStringSync(indexFileContent);
+  File("./web/index.css").copySync("./build/index.css");
 }
 
 _removeFiles(List<String> files) {
