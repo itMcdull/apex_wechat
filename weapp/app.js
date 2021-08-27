@@ -1,6 +1,9 @@
 // app.js
 App({
   onLaunch() {
+    try {
+      require('./plugins.min');
+    } catch (error) { }
     const { Engine, WXApp } = require('./mpdom.min');
     const engine = new Engine();
     var dev = true;

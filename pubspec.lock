@@ -40,8 +40,8 @@ packages:
     dependency: "direct main"
     description:
       path: "packages/flutter"
-      ref: "0.2.4"
-      resolved-ref: d1d6d47b9b518ca83f44c5c3a86626d71221d8fe
+      ref: "0.3.1"
+      resolved-ref: ae8946f39dd3d86365103ea65df8f64d182f3f3e
       url: "https://github.com/mpflutter/mpflutter"
     source: git
     version: "0.0.0"
@@ -49,8 +49,8 @@ packages:
     dependency: "direct overridden"
     description:
       path: "packages/flutter_web_plugins"
-      ref: "0.2.4"
-      resolved-ref: d1d6d47b9b518ca83f44c5c3a86626d71221d8fe
+      ref: "0.3.1"
+      resolved-ref: ae8946f39dd3d86365103ea65df8f64d182f3f3e
       url: "https://github.com/mpflutter/mpflutter"
     source: git
     version: "0.0.0"
@@ -61,6 +61,22 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "2.0.1"
+  http:
+    dependency: transitive
+    description:
+      path: "."
+      ref: HEAD
+      resolved-ref: "2efeca49b1aabd7485276959633dba25c750ec5b"
+      url: "https://github.com/mpflutter-plugins/http"
+    source: git
+    version: "0.13.1"
+  http_parser:
+    dependency: transitive
+    description:
+      name: http_parser
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "4.0.0"
   json_patch:
     dependency: transitive
     description:
@@ -86,8 +102,8 @@ packages:
     dependency: "direct main"
     description:
       path: "packages/mp_build_tools"
-      ref: "0.2.4"
-      resolved-ref: d1d6d47b9b518ca83f44c5c3a86626d71221d8fe
+      ref: "0.3.1"
+      resolved-ref: ae8946f39dd3d86365103ea65df8f64d182f3f3e
       url: "https://github.com/mpflutter/mpflutter"
     source: git
     version: "1.0.0+1"
@@ -95,8 +111,8 @@ packages:
     dependency: "direct main"
     description:
       path: "packages/mpcore"
-      ref: "0.2.4"
-      resolved-ref: d1d6d47b9b518ca83f44c5c3a86626d71221d8fe
+      ref: "0.3.1"
+      resolved-ref: ae8946f39dd3d86365103ea65df8f64d182f3f3e
       url: "https://github.com/mpflutter/mpflutter"
     source: git
     version: "0.0.1"
