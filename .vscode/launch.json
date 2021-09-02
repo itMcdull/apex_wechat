@@ -1,11 +1,13 @@
 {
   "version": "0.2.0",
   "configurations": [
+
     {
       "name": "MPFlutter",
       "request": "launch",
       "type": "dart",
-      "program": "lib/main.dart"
+      "program": "lib/main.dart",
+      "preLaunchTask": "Pre-compile MPFlutter Plugins"
     }
   ]
 }
