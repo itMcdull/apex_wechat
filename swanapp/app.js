@@ -17,6 +17,7 @@ App({
       }
       const app = new WXApp('pages/index/index', engine);
       global.app = app;
+      global.Base64 = require("./base64.min")
       engine.start();
     },
     globalData: {}
