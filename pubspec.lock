@@ -47,8 +47,8 @@ packages:
     dependency: "direct main"
     description:
       path: "packages/flutter"
-      ref: "0.6.0"
-      resolved-ref: eddef77454f8919fad3726690ee717cf260a9f33
+      ref: "0.7.1"
+      resolved-ref: "1de0384f3896bdb8454bf7d3c4d496376f367f96"
       url: "https://github.com/mpflutter/mpflutter"
     source: git
     version: "0.0.0"
@@ -56,8 +56,8 @@ packages:
     dependency: "direct overridden"
     description:
       path: "packages/flutter_web_plugins"
-      ref: "0.6.0"
-      resolved-ref: eddef77454f8919fad3726690ee717cf260a9f33
+      ref: "0.7.1"
+      resolved-ref: "1de0384f3896bdb8454bf7d3c4d496376f367f96"
       url: "https://github.com/mpflutter/mpflutter"
     source: git
     version: "0.0.0"
@@ -109,8 +109,8 @@ packages:
     dependency: "direct main"
     description:
       path: "packages/mp_build_tools"
-      ref: "0.6.0"
-      resolved-ref: eddef77454f8919fad3726690ee717cf260a9f33
+      ref: "0.7.1"
+      resolved-ref: "1de0384f3896bdb8454bf7d3c4d496376f367f96"
       url: "https://github.com/mpflutter/mpflutter"
     source: git
     version: "1.0.0+1"
@@ -118,8 +118,8 @@ packages:
     dependency: "direct main"
     description:
       path: "packages/mpcore"
-      ref: "0.6.0"
-      resolved-ref: eddef77454f8919fad3726690ee717cf260a9f33
+      ref: "0.7.1"
+      resolved-ref: "1de0384f3896bdb8454bf7d3c4d496376f367f96"
       url: "https://github.com/mpflutter/mpflutter"
     source: git
     version: "0.0.1"

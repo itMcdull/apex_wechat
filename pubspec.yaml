@@ -9,30 +9,30 @@ dependencies:
     git:
       url: https://github.com/mpflutter/mpflutter
       path: packages/flutter
-      ref: 0.6.0
+      ref: 0.7.1
   mpcore:
     git:
       url: https://github.com/mpflutter/mpflutter
       path: packages/mpcore
-      ref: 0.6.0
+      ref: 0.7.1
   mp_build_tools:
     git:
       url: https://github.com/mpflutter/mpflutter
       path: packages/mp_build_tools
-      ref: 0.6.0
+      ref: 0.7.1
 dependency_overrides:
   flutter:
     git:
       url: https://github.com/mpflutter/mpflutter
       path: packages/flutter
-      ref: 0.6.0
+      ref: 0.7.1
   mpcore:
     git:
       url: https://github.com/mpflutter/mpflutter
       path: packages/mpcore
-      ref: 0.6.0
+      ref: 0.7.1
   flutter_web_plugins:
     git:
       url: https://github.com/mpflutter/mpflutter
       path: packages/flutter_web_plugins
-      ref: 0.6.0
+      ref: 0.7.1
