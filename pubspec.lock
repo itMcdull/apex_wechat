@@ -22,6 +22,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.3.1"
+  cli_dialog:
+    dependency: transitive
+    description:
+      name: cli_dialog
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.5.0"
   collection:
     dependency: transitive
     description:
@@ -36,6 +43,20 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "3.0.1"
+  dart_console:
+    dependency: transitive
+    description:
+      name: dart_console
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.0.0"
+  ffi:
+    dependency: transitive
+    description:
+      name: ffi
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.1.2"
   file:
     dependency: transitive
     description:
@@ -47,8 +68,8 @@ packages:
     dependency: "direct main"
     description:
       path: "packages/flutter"
-      ref: "0.8.0"
-      resolved-ref: "4f6c72483257caca6f0a6c44bbbf15436b0b086e"
+      ref: "0.8.2"
+      resolved-ref: efefe41fc71c64c12ddbb69e6f2f8468d718505a
       url: "https://github.com/mpflutter/mpflutter"
     source: git
     version: "0.0.0"
@@ -56,8 +77,8 @@ packages:
     dependency: "direct overridden"
     description:
       path: "packages/flutter_web_plugins"
-      ref: "0.8.0"
-      resolved-ref: "4f6c72483257caca6f0a6c44bbbf15436b0b086e"
+      ref: "0.8.2"
+      resolved-ref: efefe41fc71c64c12ddbb69e6f2f8468d718505a
       url: "https://github.com/mpflutter/mpflutter"
     source: git
     version: "0.0.0"
@@ -109,8 +130,8 @@ packages:
     dependency: "direct main"
     description:
       path: "packages/mp_build_tools"
-      ref: "0.8.0"
-      resolved-ref: "4f6c72483257caca6f0a6c44bbbf15436b0b086e"
+      ref: "0.8.2"
+      resolved-ref: efefe41fc71c64c12ddbb69e6f2f8468d718505a
       url: "https://github.com/mpflutter/mpflutter"
     source: git
     version: "1.0.0+1"
@@ -118,8 +139,8 @@ packages:
     dependency: "direct main"
     description:
       path: "packages/mpcore"
-      ref: "0.8.0"
-      resolved-ref: "4f6c72483257caca6f0a6c44bbbf15436b0b086e"
+      ref: "0.8.2"
+      resolved-ref: efefe41fc71c64c12ddbb69e6f2f8468d718505a
       url: "https://github.com/mpflutter/mpflutter"
     source: git
     version: "0.0.1"
@@ -186,5 +207,12 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.0.0"
+  win32:
+    dependency: transitive
+    description:
+      name: win32
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "2.2.10"
 sdks:
-  dart: ">=2.12.0 <3.0.0"
+  dart: ">=2.13.0 <3.0.0"
