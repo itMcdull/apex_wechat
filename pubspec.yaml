@@ -5,34 +5,6 @@ version: 1.0.0+1
 environment:
   sdk: ">=2.12.0 <3.0.0"
 dependencies:
-  flutter:
-    git:
-      url: https://github.com/mpflutter/mpflutter
-      path: packages/flutter
-      ref: 0.8.3
-  mpcore:
-    git:
-      url: https://github.com/mpflutter/mpflutter
-      path: packages/mpcore
-      ref: 0.8.3
-  mp_build_tools:
-    git:
-      url: https://github.com/mpflutter/mpflutter
-      path: packages/mp_build_tools
-      ref: 0.8.3
-dependency_overrides:
-  flutter:
-    git:
-      url: https://github.com/mpflutter/mpflutter
-      path: packages/flutter
-      ref: 0.8.3
-  mpcore:
-    git:
-      url: https://github.com/mpflutter/mpflutter
-      path: packages/mpcore
-      ref: 0.8.3
-  flutter_web_plugins:
-    git:
-      url: https://github.com/mpflutter/mpflutter
-      path: packages/flutter_web_plugins
-      ref: 0.8.3
+  flutter: ^0.8.0
+  mpcore: ^0.8.0
+  mp_build_tools: ^0.8.0

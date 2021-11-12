@@ -19,7 +19,7 @@ Flutter 开发环境可以在 https://flutter.dev 或 https://flutter-io.cn 下�
 ## 开发
 
 1. 使用 Git clone 或直接下载本仓库，使用 VSCode 打开本仓库根目录。
-2. 使用命令行，locate 到本仓库根目录，执行命令 `dart pub get`。
+2. 使用命令行，locate 到本仓库根目录，执行命令 `./dart pub get`（*划重点，这里是执行 ./dart 而不是 dart*）。
 2. 按下键盘上的 'F5' 键，开始调试，在 VSCode 的调试控制台上出现如下输出。
 
 ```
