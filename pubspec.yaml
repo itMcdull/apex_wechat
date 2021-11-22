@@ -6,8 +6,11 @@ environment:
   sdk: ">=2.12.0 <3.0.0"
 dependencies:
   flutter: "0.8.5"
+  flutter_web_plugins: "0.8.5"
   mpcore: "0.8.5"
   mp_build_tools: "0.8.5"
   path_provider: ^2.0.7
+  shared_preferences: ^2.0.9
 dependency_overrides:
   flutter: "0.8.5"
+  flutter_web_plugins: "0.8.5"
