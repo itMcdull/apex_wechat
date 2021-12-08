@@ -70,14 +70,14 @@ packages:
       name: flutter
       url: "https://pub.mpflutter.com"
     source: hosted
-    version: "0.10.0"
+    version: "0.10.1"
   flutter_web_plugins:
     dependency: "direct main"
     description:
       name: flutter_web_plugins
       url: "https://pub.mpflutter.com"
     source: hosted
-    version: "0.10.0"
+    version: "0.10.1"
   glob:
     dependency: transitive
     description:
@@ -126,14 +126,14 @@ packages:
       name: mp_build_tools
       url: "https://pub.mpflutter.com"
     source: hosted
-    version: "0.10.0"
+    version: "0.10.1"
   mpcore:
     dependency: "direct main"
     description:
       name: mpcore
       url: "https://pub.mpflutter.com"
     source: hosted
-    version: "0.10.0"
+    version: "0.10.1"
   path:
     dependency: transitive
     description:
