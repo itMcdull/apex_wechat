@@ -10,7 +10,6 @@ dependencies:
   mpcore: "0.10.1"
   mp_build_tools: "0.10.1"
   path_provider: ^2.0.7
-  shared_preferences: ^2.0.8
 dependency_overrides:
   flutter: "0.10.1"
   mpcore: "0.10.1"
