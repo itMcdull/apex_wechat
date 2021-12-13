@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:mpcore/mpcore.dart';
-import 'package:mpflutter_template/second_page.dart';
+import 'package:apex_wechat/second_page.dart';
 
 void main() {
   runApp(MyApp());
