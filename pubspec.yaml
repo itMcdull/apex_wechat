@@ -14,3 +14,6 @@ dependency_overrides:
   flutter: "0.10.2"
   mpcore: "0.10.2"
   flutter_web_plugins: "0.10.2"
+flutter:
+  assets:
+    - assets/images/
