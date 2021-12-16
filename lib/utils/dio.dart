@@ -1,83 +1,107 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 
 class Call {
-  static final Call _instance = Call._internal();
-  // 单例模式使用Call类，
-  factory Call() => _instance;
+  static Dio? _dio;
 
-  static late final Dio dio;
-  CancelToken _cancelToken = new CancelToken();
+  //单例初始化配置
+  static BaseOptions _options = new BaseOptions(
+    receiveTimeout: 5000,
+    sendTimeout: 4000,
+    connectTimeout: 10000,
+    contentType: Headers.jsonContentType,
+  );
 
-  Call._internal() {
-    // BaseOptions、Options、RequestOptions 都可以配置参数，优先级别依次递增，且可以根据优先级别覆盖参数
-    BaseOptions options = new BaseOptions();
-
-    dio = Dio(options);
-  }
-
-  ///初始化公共属性
-  ///
-  /// [baseUrl] 地址前缀
-  /// [connectTimeout] 连接超时赶时间
-  /// [receiveTimeout] 接收超时赶时间
-  /// [interceptors] 基础拦截器
-  void init({
-    String? baseUrl,
-    int connectTimeout = 1500,
-    int receiveTimeout = 1500,
-    Map<String, String>? headers,
-    List<Interceptor>? interceptors,
-  }) {
-    dio.options = dio.options.copyWith(
-      baseUrl: baseUrl,
-      connectTimeout: connectTimeout,
-      receiveTimeout: receiveTimeout,
-      headers: headers ?? const {},
-    );
-    // 在初始化Call类的时候，可以传入拦截器
-    if (interceptors != null && interceptors.isNotEmpty) {
-      dio.interceptors..addAll(interceptors);
+  //实例化
+  static Dio? buildDio() {
+    if (_dio == null) {
+      _dio = new Dio(_options);
     }
+    return _dio;
   }
 
-  // 关闭dio
-  void cancelRequests({required CancelToken token}) {
-    _cancelToken.cancel("cancelled");
-  }
-
-  // 添加认证
-  // 读取本地配置
-  Map<String, dynamic>? getAuthorizationHeader() {
-    Map<String, dynamic>? headers;
-    //TODO: 从getx或者sputils中获取
-    String accessToken = "";
-    if (accessToken != "") {
-      headers = {
-        'Authorization': 'Bearer $accessToken',
-      };
-    }
-    return headers;
-  }
-
-  Future post(
-    String path, {
-    Map<String, dynamic>? params,
-    data,
-    Options? options,
-    CancelToken? cancelToken,
+  //调用方法
+  static dispatch(
+    url, {
+    bool loading = false,
+    Map<String, dynamic>? data,
+    String? options,
+    int? timeout,
+    bool forceRefresh = true,
+    bool isfilter = false,
+    isGetData = false,
   }) async {
-    Options requestOptions = options ?? Options();
-    Map<String, dynamic>? _authorization = getAuthorizationHeader();
-    if (_authorization != null) {
-      requestOptions = requestOptions.copyWith(headers: _authorization);
+    Map<String, dynamic> parameter = data ?? {};
+    String method = options ?? "GET";
+    // String token = Storage.token.value ?? '';
+    _options.baseUrl = 'https://api.xiuxf.xyz';
+    _options.headers = {
+      'content-type': "application/json; charset=utf-8",
+    };
+
+    Dio? dio = buildDio();
+    Response response;
+    // dio.interceptors.add(LogInterceptor(error: true)); // 打印头或主体信息，调试用
+    dio?.options.connectTimeout = timeout ?? 10000;
+
+    try {
+      //请求
+      if (isGetData) {
+        response = await dio!.request(
+          url,
+          queryParameters: parameter,
+          options: Options(
+            method: method,
+          ),
+        );
+      } else {
+        response = await dio!.request(
+          url,
+          data: parameter,
+          options: Options(
+            method: method,
+          ),
+        );
+      }
+
+      var mapData;
+
+      if (response.data is String) {
+        mapData = json.decode(response.data) as Map;
+      } else {
+        mapData = response.data;
+      }
+      return mapData;
+    } on DioError catch (e) {
+      var error = formatError(e);
+      return {'code': -998, 'msg': error, 'data': ''};
     }
-    var response = await dio.post(
-      path,
-      data: data,
-      queryParameters: params,
-      options: requestOptions,
-      cancelToken: cancelToken ?? _cancelToken,
-    );
-    return response.data;
   }
+}
+
+formatError(DioError e) {
+  var item = 'Network Error';
+  if (e.type == DioErrorType.connectTimeout) {
+    item = '连接超时';
+    print("连接超时");
+  } else if (e.type == DioErrorType.sendTimeout) {
+    item = '请求超时';
+    print("请求超时");
+  } else if (e.type == DioErrorType.receiveTimeout) {
+    item = '响应超时';
+    print("响应超时");
+  } else if (e.type == DioErrorType.response) {
+    item = '出现异常';
+    print("出现异常");
+  } else if (e.type == DioErrorType.cancel) {
+    item = '请求取消';
+    print("请求取消");
+  } else if (e.type == DioErrorType.other) {
+    item = '服务器开小差了~~';
+  } else {
+    item = '未知错误';
+    print("未知错误");
+  }
+  return item;
 }

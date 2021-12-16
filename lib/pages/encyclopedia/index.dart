@@ -1,3 +1,9 @@
+import 'dart:ffi';
+
+import 'package:apex_wechat/model/hero_model.dart';
+import 'package:apex_wechat/pages/encyclopedia/control.dart';
+import 'package:apex_wechat/utils/dio.dart';
+import 'package:apex_wechat/utils/instances.dart';
 import 'package:apex_wechat/widgets/apex_tabbar.dart';
 import 'package:flutter/widgets.dart';
 import 'package:mpcore/mpcore.dart';
@@ -11,8 +17,23 @@ class EncyclopediaPage extends StatefulWidget {
 }
 
 class _EncyclopediaPageState extends State<EncyclopediaPage> {
-  MPPageController _pageController = MPPageController();
-  MPPageController _apexClassController = MPPageController();
+  HeroModel? _heroModel;
+  @override
+  void initState() {
+    super.initState();
+    _getData();
+  }
+
+  _getData() {
+    EncyclopediaControl.gethreo(
+        onsuccess: (value) {
+          print(value);
+          _heroModel = value;
+          setState(() {});
+        },
+        onError: (value) {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return MPScaffold(
@@ -28,9 +49,9 @@ class _EncyclopediaPageState extends State<EncyclopediaPage> {
                 child: Column(
               children: [
                 Container(
-                  height: MediaQuery.of(context).size.height / 3.3,
+                  height: MediaQuery.of(currentContext!).size.height / 3.3,
                   color: Colors.red,
-                  width: MediaQuery.of(context).size.width,
+                  width: MediaQuery.of(currentContext!).size.width,
                   child: Image.asset(
                     'assets/images/logo.png',
                     fit: BoxFit.cover,
@@ -38,7 +59,6 @@ class _EncyclopediaPageState extends State<EncyclopediaPage> {
                 ),
                 ApexTabbarView(
                   key: ValueKey('all'),
-                  controller: _pageController,
                   tab: ['传奇', '枪械', '地图'],
                   children: [
                     ApexTabbarView(
@@ -51,13 +71,48 @@ class _EncyclopediaPageState extends State<EncyclopediaPage> {
                         '侦擦型',
                       ],
                       children: [
-                        Text('全部'),
+                        Container(
+                          padding: EdgeInsets.only(
+                              bottom: 56, top: 10, left: 10, right: 10),
+                          child: Wrap(
+                            spacing: 10,
+                            runSpacing: 10,
+                            children:
+                                (_heroModel == null ? [] : _heroModel!.data)
+                                    .map<Widget>((e) {
+                              return Container(
+                                child: Column(
+                                  children: [
+                                    SizedBox(
+                                      child: Image.network(
+                                        e.heroImg,
+                                        fit: BoxFit.cover,
+                                      ),
+                                      height: 147,
+                                      width: MediaQuery.of(currentContext!)
+                                              .size
+                                              .width /
+                                          3.5,
+                                    ),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    Text(e.heroName,
+                                        style: TextStyle(
+                                          fontSize: 14,
+                                          color: Color(0xff585858),
+                                        )),
+                                  ],
+                                ),
+                              );
+                            }).toList(),
+                          ),
+                        ),
                         Text('突击型'),
                         Text('防御型'),
                         Text('支援型'),
                         Text('侦擦型'),
                       ],
-                      controller: _apexClassController,
                       key: ValueKey('apex'),
                     ),
                     Text('枪械'),

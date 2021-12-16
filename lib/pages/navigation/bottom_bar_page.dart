@@ -1,6 +1,7 @@
 import 'package:apex_wechat/pages/encyclopedia/index.dart';
 import 'package:apex_wechat/pages/headlines/index.dart';
 import 'package:apex_wechat/pages/mine/index.dart';
+import 'package:apex_wechat/utils/instances.dart';
 import 'package:flutter/widgets.dart';
 import 'package:mpcore/mpkit/mpkit.dart';
 import 'package:mpcore/mpcore.dart';
@@ -81,7 +82,7 @@ class _MainTabViewPageState extends State<MainTabViewPage> {
     required bool actived,
   }) {
     return Container(
-        width: MediaQuery.of(context).size.width / 3,
+        width: MediaQuery.of(currentContext!).size.width / 3,
         color: Color(0xffeeeeee),
         height: 56,
         child: Column(

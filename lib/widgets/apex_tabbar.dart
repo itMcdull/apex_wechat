@@ -1,18 +1,16 @@
+import 'package:apex_wechat/utils/instances.dart';
 import 'package:flutter/widgets.dart';
-import 'package:mpcore/mpcore.dart';
 
 class ApexTabbarView extends StatefulWidget {
   final List<String>? tab;
   final List<Widget>? children;
   final bool isDivider;
-  final MPPageController controller;
-  ApexTabbarView(
-      {Key? key,
-      required this.tab,
-      required this.children,
-      this.isDivider = true,
-      required this.controller})
-      : super(key: key);
+  ApexTabbarView({
+    Key? key,
+    required this.tab,
+    required this.children,
+    this.isDivider = true,
+  }) : super(key: key);
 
   @override
   _ApexTabbarViewState createState() => _ApexTabbarViewState();
@@ -38,7 +36,6 @@ class _ApexTabbarViewState extends State<ApexTabbarView> {
             print(widget.children![i]);
             currentIndex = i;
             _widget = widget.children![i];
-            widget.controller.animateToPage(i);
           });
         },
         child: Center(
@@ -83,7 +80,7 @@ class _ApexTabbarViewState extends State<ApexTabbarView> {
                   ? Border(
                       bottom: BorderSide(color: Color(0xffE8E8E8), width: 1))
                   : Border()),
-          width: MediaQuery.of(context).size.width,
+          width: MediaQuery.of(currentContext!).size.width,
           child: Row(children: _randerItem()),
         ),
         Container(child: _widget ?? widget.children![0])
