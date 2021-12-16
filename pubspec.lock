@@ -50,6 +50,13 @@ packages:
       url: "https://pub.mpflutter.com"
     source: hosted
     version: "1.0.0"
+  dio:
+    dependency: "direct main"
+    description:
+      name: dio
+      url: "https://pub.mpflutter.com"
+    source: hosted
+    version: "4.0.0"
   ffi:
     dependency: transitive
     description:
@@ -218,6 +225,13 @@ packages:
       url: "https://pub.mpflutter.com"
     source: hosted
     version: "4.2.4"
+  shared_preferences:
+    dependency: "direct main"
+    description:
+      name: shared_preferences
+      url: "https://pub.mpflutter.com"
+    source: hosted
+    version: "2.0.8"
   source_span:
     dependency: transitive
     description:
