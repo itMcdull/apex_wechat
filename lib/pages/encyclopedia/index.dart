@@ -2,11 +2,12 @@ import 'dart:ffi';
 
 import 'package:apex_wechat/model/hero_model.dart';
 import 'package:apex_wechat/pages/encyclopedia/control.dart';
-import 'package:apex_wechat/utils/dio.dart';
+import 'package:apex_wechat/provider/hero_provider.dart';
 import 'package:apex_wechat/utils/instances.dart';
 import 'package:apex_wechat/widgets/apex_tabbar.dart';
 import 'package:flutter/widgets.dart';
 import 'package:mpcore/mpcore.dart';
+import 'package:provider/provider.dart';
 
 class EncyclopediaPage extends StatefulWidget {
   final String title;
@@ -25,7 +26,7 @@ class _EncyclopediaPageState extends State<EncyclopediaPage> {
   }
 
   _getData() {
-    EncyclopediaControl.gethreo(
+    EncyclopediaControl.gethero(
         onsuccess: (value) {
           print(value);
           _heroModel = value;
@@ -71,42 +72,48 @@ class _EncyclopediaPageState extends State<EncyclopediaPage> {
                         '侦擦型',
                       ],
                       children: [
-                        Container(
-                          padding: EdgeInsets.only(
-                              bottom: 56, top: 10, left: 10, right: 10),
-                          child: Wrap(
-                            spacing: 10,
-                            runSpacing: 10,
-                            children:
-                                (_heroModel == null ? [] : _heroModel!.data)
+                        Consumer(
+                          builder: (BuildContext context, HeroProvider state,
+                              Widget? child) {
+                            return Container(
+                              padding: EdgeInsets.only(
+                                  bottom: 56, top: 10, left: 10, right: 10),
+                              child: Wrap(
+                                spacing: 10,
+                                runSpacing: 10,
+                                children: (state.heroModel == null
+                                        ? []
+                                        : state.heroModel!.data)
                                     .map<Widget>((e) {
-                              return Container(
-                                child: Column(
-                                  children: [
-                                    SizedBox(
-                                      child: Image.network(
-                                        e.heroImg,
-                                        fit: BoxFit.cover,
-                                      ),
-                                      height: 147,
-                                      width: MediaQuery.of(currentContext!)
-                                              .size
-                                              .width /
-                                          3.5,
+                                  return Container(
+                                    child: Column(
+                                      children: [
+                                        SizedBox(
+                                          child: Image.network(
+                                            e.heroImg,
+                                            fit: BoxFit.cover,
+                                          ),
+                                          height: 147,
+                                          width: MediaQuery.of(currentContext!)
+                                                  .size
+                                                  .width /
+                                              3.5,
+                                        ),
+                                        SizedBox(
+                                          height: 10,
+                                        ),
+                                        Text(e.heroName,
+                                            style: TextStyle(
+                                              fontSize: 14,
+                                              color: Color(0xff585858),
+                                            )),
+                                      ],
                                     ),
-                                    SizedBox(
-                                      height: 10,
-                                    ),
-                                    Text(e.heroName,
-                                        style: TextStyle(
-                                          fontSize: 14,
-                                          color: Color(0xff585858),
-                                        )),
-                                  ],
-                                ),
-                              );
-                            }).toList(),
-                          ),
+                                  );
+                                }).toList(),
+                              ),
+                            );
+                          },
                         ),
                         Text('突击型'),
                         Text('防御型'),
