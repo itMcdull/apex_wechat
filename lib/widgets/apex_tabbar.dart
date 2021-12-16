@@ -5,11 +5,13 @@ class ApexTabbarView extends StatefulWidget {
   final List<String>? tab;
   final List<Widget>? children;
   final bool isDivider;
+  final MPPageController controller;
   ApexTabbarView(
       {Key? key,
       required this.tab,
       required this.children,
-      this.isDivider = true})
+      this.isDivider = true,
+      required this.controller})
       : super(key: key);
 
   @override
@@ -17,8 +19,12 @@ class ApexTabbarView extends StatefulWidget {
 }
 
 class _ApexTabbarViewState extends State<ApexTabbarView> {
-  MPPageController _pageController = MPPageController();
   int currentIndex = 0;
+  Widget? _widget;
+  @override
+  void initState() {
+    super.initState();
+  }
 
   ///[tabbar]
   _randerItem() {
@@ -28,8 +34,11 @@ class _ApexTabbarViewState extends State<ApexTabbarView> {
           child: GestureDetector(
         onTap: () {
           setState(() {
+            print(i);
+            print(widget.children![i]);
             currentIndex = i;
-            _pageController.animateToPage(i);
+            _widget = widget.children![i];
+            widget.controller.animateToPage(i);
           });
         },
         child: Center(
@@ -77,14 +86,7 @@ class _ApexTabbarViewState extends State<ApexTabbarView> {
           width: MediaQuery.of(context).size.width,
           child: Row(children: _randerItem()),
         ),
-        Container(
-          height: 500,
-          child: MPPageView(
-              controller: _pageController,
-              children: widget.children!.map((e) {
-                return e;
-              }).toList()),
-        )
+        Container(child: _widget ?? widget.children![0])
       ],
     ));
   }
