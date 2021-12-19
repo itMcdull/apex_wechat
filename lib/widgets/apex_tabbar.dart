@@ -32,8 +32,6 @@ class _ApexTabbarViewState extends State<ApexTabbarView> {
           child: GestureDetector(
         onTap: () {
           setState(() {
-            print(i);
-            print(widget.children![i]);
             currentIndex = i;
             _widget = widget.children![i];
           });
