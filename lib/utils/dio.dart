@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:dio/dio.dart';
 
 class Call {
@@ -47,32 +45,25 @@ class Call {
 
     try {
       //请求
-      if (isGetData) {
-        response = await dio!.request(
-          url,
-          queryParameters: parameter,
-          options: Options(
-            method: method,
-          ),
-        );
-      } else {
-        response = await dio!.request(
-          url,
-          data: parameter,
-          options: Options(
-            method: method,
-          ),
-        );
-      }
+      // if (isGetData) {
+      //   response = await dio!.request(
+      //     url,
+      //     queryParameters: parameter,
+      //     options: Options(
+      //       method: method,
+      //     ),
+      //   );
+      // } else {
+      response = await dio!.request(
+        url,
+        data: parameter,
+        options: Options(
+          method: method,
+        ),
+      );
+      // }
 
-      var mapData;
-
-      if (response.data is String) {
-        mapData = json.decode(response.data) as Map;
-      } else {
-        mapData = response.data;
-      }
-      return mapData;
+      return response.data;
     } on DioError catch (e) {
       var error = formatError(e);
       return {'code': -998, 'msg': error, 'data': ''};

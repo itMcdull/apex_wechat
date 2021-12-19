@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:apex_wechat/model/hero_model.dart';
 import 'package:apex_wechat/provider/hero_provider.dart';
 import 'package:apex_wechat/utils/dio.dart';
@@ -10,7 +12,6 @@ class EncyclopediaControl {
       required Function(HeroModel value) onError,
       String value = '0'}) async {
     await Call.dispatch('/wiki/hero/sort/$value').then((result) {
-      print(result['data']);
       if (result['code'] == 0) {
         Provider.of<HeroProvider>(currentContext!, listen: false)
             .setHero(HeroModel.fromJson(result));
@@ -18,6 +19,14 @@ class EncyclopediaControl {
       } else {
         onError(HeroModel.fromJson(result));
       }
+    });
+  }
+
+  static getArms() async {
+    await Call.dispatch('/wiki/arms/sorts').then((result) {
+      print(json.encode(result));
+      if (result['code'] == 0) {
+      } else {}
     });
   }
 }

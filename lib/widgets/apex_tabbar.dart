@@ -5,10 +5,12 @@ class ApexTabbarView extends StatefulWidget {
   final List<String>? tab;
   final List<Widget>? children;
   final bool isDivider;
+  final Function(int index)? onTap;
   ApexTabbarView({
     Key? key,
     required this.tab,
     required this.children,
+    this.onTap,
     this.isDivider = true,
   }) : super(key: key);
 
@@ -31,6 +33,9 @@ class _ApexTabbarViewState extends State<ApexTabbarView> {
       item.add(Expanded(
           child: GestureDetector(
         onTap: () {
+          if (widget.onTap != null) {
+            widget.onTap!(i);
+          }
           setState(() {
             currentIndex = i;
             _widget = widget.children![i];
@@ -63,6 +68,7 @@ class _ApexTabbarViewState extends State<ApexTabbarView> {
         ),
       )));
     }
+    setState(() {});
     return item;
   }
 
@@ -73,11 +79,11 @@ class _ApexTabbarViewState extends State<ApexTabbarView> {
       children: [
         Container(
           height: 55,
-          decoration: BoxDecoration(
-              border: widget.isDivider
-                  ? Border(
-                      bottom: BorderSide(color: Color(0xffE8E8E8), width: 1))
-                  : Border()),
+          decoration: widget.isDivider
+              ? BoxDecoration(
+                  border: Border(
+                      bottom: BorderSide(color: Color(0xffE8E8E8), width: 1)))
+              : null,
           width: MediaQuery.of(currentContext!).size.width,
           child: Row(children: _randerItem()),
         ),

@@ -1,10 +1,9 @@
 import 'package:apex_wechat/pages/encyclopedia/control.dart';
-import 'package:apex_wechat/provider/hero_provider.dart';
+import 'package:apex_wechat/pages/encyclopedia/legend_page.dart';
 import 'package:apex_wechat/utils/instances.dart';
 import 'package:apex_wechat/widgets/apex_tabbar.dart';
 import 'package:flutter/widgets.dart';
 import 'package:mpcore/mpcore.dart';
-import 'package:provider/provider.dart';
 
 typedef ListClass = List<String>;
 
@@ -14,6 +13,16 @@ const ListClass ApexType = [
   '防御型',
   '支援型',
   '侦擦型',
+];
+const ListClass ArmsType = [
+  '全部',
+  '轻型',
+  '重型',
+  '能量',
+  '霰弹',
+  '弓',
+  '空投',
+  '狙击',
 ];
 const ListClass TabPageClass = ['传奇', '枪械', '地图'];
 
@@ -29,22 +38,21 @@ class _EncyclopediaPageState extends State<EncyclopediaPage> {
   @override
   void initState() {
     super.initState();
-    _getData();
+    _getHeroData();
+    _getArmsData();
   }
 
-  _getData() {
+  _getHeroData() {
     EncyclopediaControl.gethero(onsuccess: (value) {}, onError: (value) {});
+  }
+
+  _getArmsData() {
+    EncyclopediaControl.getArms();
   }
 
   @override
   Widget build(BuildContext context) {
     return MPScaffold(
-        appBar: MPAppBar(
-          context: context,
-          title: Text(widget.title), // 标题
-          backgroundColor: Color(0xffeeeeee),
-          appBarHeight: 56, // AppBar 高度
-        ),
         body: Container(
             constraints: BoxConstraints.expand(),
             child: SingleChildScrollView(
@@ -62,83 +70,58 @@ class _EncyclopediaPageState extends State<EncyclopediaPage> {
                 ApexTabbarView(
                   key: ValueKey('all'),
                   tab: TabPageClass,
+                  onTap: (index) {
+                    print(index);
+                  },
                   children: [
+                    _heroWidget,
                     ApexTabbarView(
+                      key: ValueKey('arms'),
                       isDivider: false,
-                      tab: ApexType,
+                      tab: ArmsType,
                       children: [
-                        ApexHeroListView(
-                          type: 0,
+                        const Text('text'),
+                        Container(
+                          child: Image.asset(
+                            "assets/images/loading.svg",
+                            width: 80,
+                            height: 80,
+                          ),
                         ),
-                        ApexHeroListView(
-                          type: 1,
-                        ),
-                        ApexHeroListView(
-                          type: 4,
-                        ),
-                        ApexHeroListView(
-                          type: 3,
-                        ),
-                        ApexHeroListView(
-                          type: 2,
-                        ),
+                        const Text('text'),
+                        const Text('text'),
+                        const Text('text'),
+                        const Text('text'),
+                        const Text('text'),
+                        const Text('text'),
                       ],
                     ),
-                    Text('枪械'),
-                    Text('地图'),
+                    _heroWidget,
                   ],
                 ),
               ],
             ))));
   }
-}
 
-class ApexHeroListView extends StatelessWidget {
-  final int type;
-  const ApexHeroListView({Key? key, this.type = 0}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Consumer(
-      key: ValueKey(type),
-      builder: (BuildContext context, HeroProvider state, Widget? child) {
-        return Container(
-          padding: EdgeInsets.only(bottom: 56, top: 10, left: 10, right: 10),
-          child: Wrap(
-            spacing: 10,
-            runSpacing: 10,
-            alignment: WrapAlignment.start,
-            children: (type != 0
-                    ? (state.heroModel == null ? [] : state.heroModel!.data)
-                        .where((element) => element.sortId == type)
-                    : (state.heroModel == null ? [] : state.heroModel!.data))
-                .map<Widget>((e) {
-              return Container(
-                child: Column(
-                  children: [
-                    SizedBox(
-                      child: Image.network(
-                        e.heroImg,
-                        fit: BoxFit.cover,
-                      ),
-                      height: 147,
-                      width: MediaQuery.of(currentContext!).size.width / 3.5,
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Text(e.heroName,
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: Color(0xff585858),
-                        )),
-                  ],
-                ),
-              );
-            }).toList(),
+  ///[传奇]
+  get _heroWidget => ApexTabbarView(
+        isDivider: false,
+        tab: ApexType,
+        key: ValueKey('hero'),
+        children: [
+          ApexHeroListView(),
+          ApexHeroListView(
+            type: 1,
           ),
-        );
-      },
-    );
-  }
+          ApexHeroListView(
+            type: 4,
+          ),
+          ApexHeroListView(
+            type: 3,
+          ),
+          ApexHeroListView(
+            type: 2,
+          ),
+        ],
+      );
 }
