@@ -1,3 +1,4 @@
+import 'package:apex_wechat/pages/encyclopedia/arms_page.dart';
 import 'package:apex_wechat/pages/encyclopedia/control.dart';
 import 'package:apex_wechat/pages/encyclopedia/legend_page.dart';
 import 'package:apex_wechat/utils/instances.dart';
@@ -6,23 +7,24 @@ import 'package:flutter/widgets.dart';
 import 'package:mpcore/mpcore.dart';
 
 typedef ListClass = List<String>;
+typedef JsonClass = List<Map<String, dynamic>>;
 
-const ListClass ApexType = [
-  '全部',
-  '突击型',
-  '防御型',
-  '支援型',
-  '侦擦型',
+const JsonClass ApexType = [
+  {'title': '全部', 'id': 0},
+  {'title': '突击型', 'id': 1},
+  {'title': '防御型', 'id': 4},
+  {'title': '支援型', 'id': 3},
+  {'title': '侦擦型', 'id': 2},
 ];
-const ListClass ArmsType = [
-  '全部',
-  '轻型',
-  '重型',
-  '能量',
-  '霰弹',
-  '弓',
-  '空投',
-  '狙击',
+const JsonClass ArmsType = [
+  {'title': '全部', "id": 0},
+  {'title': '轻型', "id": 2},
+  {'title': '重型', "id": 3},
+  {'title': '能量', "id": 5},
+  {'title': '霰弹', "id": 4},
+  {'title': '弓', "id": 1},
+  {'title': '空投', "id": 7},
+  {'title': '狙击', "id": 6},
 ];
 const ListClass TabPageClass = ['传奇', '枪械', '地图'];
 
@@ -38,21 +40,26 @@ class _EncyclopediaPageState extends State<EncyclopediaPage> {
   @override
   void initState() {
     super.initState();
-    _getHeroData();
-    _getArmsData();
+    // _getHeroData();
+    _getBootstrapData();
   }
 
-  _getHeroData() {
-    EncyclopediaControl.gethero(onsuccess: (value) {}, onError: (value) {});
-  }
+  // _getHeroData() {
+  //   EncyclopediaControl.gethero();
+  // }
 
-  _getArmsData() {
-    EncyclopediaControl.getArms();
+  // _getArmsData() {
+  //   EncyclopediaControl.getArms();
+  // }
+
+  _getBootstrapData() {
+    EncyclopediaControl.bootstrap();
   }
 
   @override
   Widget build(BuildContext context) {
     return MPScaffold(
+        name: '百科',
         body: Container(
             constraints: BoxConstraints.expand(),
             child: SingleChildScrollView(
@@ -70,32 +77,10 @@ class _EncyclopediaPageState extends State<EncyclopediaPage> {
                 ApexTabbarView(
                   key: ValueKey('all'),
                   tab: TabPageClass,
-                  onTap: (index) {
-                    print(index);
-                  },
+                  onTap: (index) {},
                   children: [
                     _heroWidget,
-                    ApexTabbarView(
-                      key: ValueKey('arms'),
-                      isDivider: false,
-                      tab: ArmsType,
-                      children: [
-                        const Text('text'),
-                        Container(
-                          child: Image.asset(
-                            "assets/images/loading.svg",
-                            width: 80,
-                            height: 80,
-                          ),
-                        ),
-                        const Text('text'),
-                        const Text('text'),
-                        const Text('text'),
-                        const Text('text'),
-                        const Text('text'),
-                        const Text('text'),
-                      ],
-                    ),
+                    _armsWidget,
                     _heroWidget,
                   ],
                 ),
@@ -106,22 +91,21 @@ class _EncyclopediaPageState extends State<EncyclopediaPage> {
   ///[传奇]
   get _heroWidget => ApexTabbarView(
         isDivider: false,
-        tab: ApexType,
+        tab: ApexType.map<String>((e) => e['title']).toList(),
         key: ValueKey('hero'),
-        children: [
-          ApexHeroListView(),
-          ApexHeroListView(
-            type: 1,
-          ),
-          ApexHeroListView(
-            type: 4,
-          ),
-          ApexHeroListView(
-            type: 3,
-          ),
-          ApexHeroListView(
-            type: 2,
-          ),
-        ],
+        children: ApexType.map((e) => ApexHeroListView(
+              type: e['id'],
+            )).toList(),
+      );
+
+  ///[枪械]
+  get _armsWidget => ApexTabbarView(
+        key: ValueKey('arms'),
+        isDivider: false,
+        tab: ArmsType.map<String>((e) => e['title']).toList(),
+        onTap: (index) {},
+        children: ArmsType.map((e) => ApexArmsListView(
+              type: e['id'],
+            )).toList(),
       );
 }

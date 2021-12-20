@@ -4,9 +4,9 @@ import 'package:apex_wechat/utils/instances.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 
-class ApexHeroListView extends StatelessWidget {
+class ApexArmsListView extends StatelessWidget {
   final int type;
-  const ApexHeroListView({Key? key, this.type = 0}) : super(key: key);
+  const ApexArmsListView({Key? key, this.type = 0}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,32 +20,41 @@ class ApexHeroListView extends StatelessWidget {
               runSpacing: 10,
               alignment: WrapAlignment.start,
               children: _renderItem(
-                  list: state.bootstrapModel?.data.hero.sorts, id: type)),
+                  list: state.bootstrapModel?.data.arms.groups, id: type)),
         );
       },
     );
   }
 
-  _renderItem({required List<Sorts>? list, int id = 0}) {
+  _renderItem({required List<ArmsGroups>? list, int id = 0}) {
     List<Widget> item = [];
     for (var i = 0; i < list!.length; i++) {
-      for (var k = 0; k < list[i].heroes.length; k++) {
+      for (var k = 0; k < list[i].items.length; k++) {
         if (id == list[i].id) {
           item.add(Container(
+            height: 100,
+            width: MediaQuery.of(currentContext!).size.width / 3.5,
+            decoration: BoxDecoration(
+                color: Color(0xffeeeeee),
+                borderRadius: BorderRadius.all(Radius.circular(10))),
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SizedBox(
+                Container(
+                  padding: EdgeInsets.all(5),
                   child: Image.network(
-                    list[i].heroes[k].heroImg,
-                    fit: BoxFit.cover,
+                    list[i].items[k].img,
+                    width: MediaQuery.of(currentContext!).size.width / 3.5,
+                    height: 50,
+                    fit: BoxFit.fitWidth,
                   ),
-                  height: 147,
+                  height: 50,
                   width: MediaQuery.of(currentContext!).size.width / 3.5,
                 ),
                 SizedBox(
                   height: 10,
                 ),
-                Text(list[i].heroes[k].heroName,
+                Text(list[i].items[k].name,
                     style: TextStyle(
                       fontSize: 14,
                       color: Color(0xff585858),

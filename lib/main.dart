@@ -1,4 +1,5 @@
 import 'package:apex_wechat/pages/navigation/bottom_bar_page.dart';
+import 'package:apex_wechat/provider/arms_provider.dart';
 import 'package:apex_wechat/provider/hero_provider.dart';
 import 'package:apex_wechat/utils/instances.dart';
 import 'package:flutter/widgets.dart';
@@ -12,6 +13,9 @@ void main() {
     providers: [
       ChangeNotifierProvider(
         create: (_) => HeroProvider(),
+      ),
+      ChangeNotifierProvider(
+        create: (_) => ArmsProvider(),
       ),
     ],
     child: MyApp(),
