@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:apex_wechat/model/arms_model.dart';
 import 'package:apex_wechat/model/bootstrap_model.dart';
 import 'package:apex_wechat/model/hero_model.dart';
@@ -40,7 +38,6 @@ class EncyclopediaControl {
   static bootstrap() async {
     await Call.dispatch('/wiki/bootstrap').then((result) {
       if (result['code'] == 0) {
-        BootstrapModel model = BootstrapModel.fromJson(result);
         Provider.of<HeroProvider>(currentContext!, listen: false)
             .setBootstrap(BootstrapModel.fromJson(result));
       } else {}

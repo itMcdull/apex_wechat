@@ -2,8 +2,8 @@ import 'package:apex_wechat/utils/instances.dart';
 import 'package:flutter/widgets.dart';
 
 class ApexTabbarView extends StatefulWidget {
-  final List<String>? tab;
-  final List<Widget>? children;
+  final List<String> tab;
+  final List<Widget> children;
   final bool isDivider;
   final Function(int index)? onTap;
   ApexTabbarView({
@@ -29,16 +29,14 @@ class _ApexTabbarViewState extends State<ApexTabbarView> {
   ///[tabbar]
   _randerItem() {
     List<Widget> item = [];
-    for (var i = 0; i < widget.tab!.length; i++) {
+    for (var i = 0; i < widget.tab.length; i++) {
       item.add(Expanded(
           child: GestureDetector(
         onTap: () {
-          if (widget.onTap != null) {
-            widget.onTap!(i);
-          }
+          widget.onTap?.call(i);
           setState(() {
             currentIndex = i;
-            _widget = widget.children![i];
+            _widget = widget.children[i];
           });
         },
         child: Center(
@@ -46,7 +44,7 @@ class _ApexTabbarViewState extends State<ApexTabbarView> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                widget.tab![i],
+                widget.tab[i],
                 style: TextStyle(
                     color: currentIndex == i
                         ? Color(0xff3C3C3C)
@@ -87,7 +85,7 @@ class _ApexTabbarViewState extends State<ApexTabbarView> {
           width: MediaQuery.of(currentContext!).size.width,
           child: Row(children: _randerItem()),
         ),
-        Container(child: _widget ?? widget.children![0])
+        Container(child: _widget ?? widget.children[0])
       ],
     ));
   }

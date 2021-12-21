@@ -1,6 +1,7 @@
 import 'package:apex_wechat/pages/encyclopedia/arms_page.dart';
 import 'package:apex_wechat/pages/encyclopedia/control.dart';
 import 'package:apex_wechat/pages/encyclopedia/legend_page.dart';
+import 'package:apex_wechat/pages/encyclopedia/map_page.dart';
 import 'package:apex_wechat/utils/instances.dart';
 import 'package:apex_wechat/widgets/apex_tabbar.dart';
 import 'package:flutter/widgets.dart';
@@ -15,6 +16,10 @@ const JsonClass ApexType = [
   {'title': '防御型', 'id': 4},
   {'title': '支援型', 'id': 3},
   {'title': '侦擦型', 'id': 2},
+];
+const JsonClass MaoType = [
+  {'title': '大逃杀', 'id': 1},
+  {'title': '竞技场', 'id': 2},
 ];
 const JsonClass ArmsType = [
   {'title': '全部', "id": 0},
@@ -78,11 +83,7 @@ class _EncyclopediaPageState extends State<EncyclopediaPage> {
                   key: ValueKey('all'),
                   tab: TabPageClass,
                   onTap: (index) {},
-                  children: [
-                    _heroWidget,
-                    _armsWidget,
-                    _heroWidget,
-                  ],
+                  children: [_heroWidget, _armsWidget, _mapWidget],
                 ),
               ],
             ))));
@@ -103,8 +104,17 @@ class _EncyclopediaPageState extends State<EncyclopediaPage> {
         key: ValueKey('arms'),
         isDivider: false,
         tab: ArmsType.map<String>((e) => e['title']).toList(),
-        onTap: (index) {},
         children: ArmsType.map((e) => ApexArmsListView(
+              type: e['id'],
+            )).toList(),
+      );
+
+  ///[地图]
+  get _mapWidget => ApexTabbarView(
+        key: ValueKey('map'),
+        isDivider: false,
+        tab: MaoType.map<String>((e) => e['title']).toList(),
+        children: MaoType.map((e) => ApexMapListView(
               type: e['id'],
             )).toList(),
       );

@@ -14,13 +14,15 @@ class ApexArmsListView extends StatelessWidget {
       key: ValueKey(type),
       builder: (BuildContext context, HeroProvider state, Widget? child) {
         return Container(
+          alignment: Alignment.centerLeft,
           padding: EdgeInsets.only(bottom: 56, top: 10, left: 10, right: 10),
           child: Wrap(
               spacing: 10,
               runSpacing: 10,
               alignment: WrapAlignment.start,
               children: _renderItem(
-                  list: state.bootstrapModel?.data.arms.groups, id: type)),
+                  list: state.bootstrapModel?.data.arms.groups ?? null,
+                  id: type)),
         );
       },
     );
@@ -28,7 +30,18 @@ class ApexArmsListView extends StatelessWidget {
 
   _renderItem({required List<ArmsGroups>? list, int id = 0}) {
     List<Widget> item = [];
-    for (var i = 0; i < list!.length; i++) {
+    if (list == null) {
+      return [
+        Center(
+          child: Container(
+            width: 120,
+            height: 120,
+            child: Image.asset('assets/images/loading.svg'),
+          ),
+        )
+      ];
+    }
+    for (var i = 0; i < list.length; i++) {
       for (var k = 0; k < list[i].items.length; k++) {
         if (id == list[i].id) {
           item.add(Container(
@@ -44,9 +57,7 @@ class ApexArmsListView extends StatelessWidget {
                   padding: EdgeInsets.all(5),
                   child: Image.network(
                     list[i].items[k].img,
-                    width: MediaQuery.of(currentContext!).size.width / 3.5,
-                    height: 50,
-                    fit: BoxFit.fitWidth,
+                    fit: BoxFit.contain,
                   ),
                   height: 50,
                   width: MediaQuery.of(currentContext!).size.width / 3.5,
