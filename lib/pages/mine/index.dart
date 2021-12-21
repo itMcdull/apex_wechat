@@ -14,17 +14,9 @@ class _MinePageState extends State<MinePage> {
   @override
   Widget build(BuildContext context) {
     return MPScaffold(
-      appBar: MPAppBar(
-        context: context,
-        title: Text(widget.title), // 标题
-        backgroundColor: Color(0xffeeeeee),
-        appBarHeight: 56, // AppBar 高度
-      ),
+      name: '我的',
       body: Center(
         child: GestureDetector(
-          onTap: () {
-            Navigator.of(context).pushNamed('/second');
-          },
           child: Container(
             width: 200,
             height: 200,

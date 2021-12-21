@@ -1,7 +1,7 @@
-import 'package:apex_wechat/pages/encyclopedia/arms_page.dart';
+import 'package:apex_wechat/pages/encyclopedia/widgets/arms_page.dart';
 import 'package:apex_wechat/pages/encyclopedia/control.dart';
-import 'package:apex_wechat/pages/encyclopedia/legend_page.dart';
-import 'package:apex_wechat/pages/encyclopedia/map_page.dart';
+import 'package:apex_wechat/pages/encyclopedia/widgets/legend_page.dart';
+import 'package:apex_wechat/pages/encyclopedia/widgets/map_page.dart';
 import 'package:apex_wechat/utils/instances.dart';
 import 'package:apex_wechat/widgets/apex_tabbar.dart';
 import 'package:flutter/widgets.dart';

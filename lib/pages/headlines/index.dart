@@ -13,12 +13,7 @@ class _HeadlinesPageState extends State<HeadlinesPage> {
   @override
   Widget build(BuildContext context) {
     return MPScaffold(
-      appBar: MPAppBar(
-        context: context,
-        title: Text(widget.title),
-        backgroundColor: Color(0xffeeeeee),
-        appBarHeight: 56, // AppBar 高度
-      ),
+      name: '头条',
       body: Center(
         child: GestureDetector(
           onTap: () {
