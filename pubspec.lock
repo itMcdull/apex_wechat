@@ -50,6 +50,13 @@ packages:
       url: "https://pub.mpflutter.com"
     source: hosted
     version: "1.0.0"
+  date_format:
+    dependency: "direct main"
+    description:
+      name: date_format
+      url: "https://pub.mpflutter.com"
+    source: hosted
+    version: "2.0.4"
   dio:
     dependency: "direct main"
     description:
@@ -85,6 +92,13 @@ packages:
       url: "https://pub.mpflutter.com"
     source: hosted
     version: "0.10.3"
+  get:
+    dependency: "direct main"
+    description:
+      name: get
+      url: "https://pub.mpflutter.com"
+    source: hosted
+    version: "4.3.8"
   glob:
     dependency: transitive
     description:

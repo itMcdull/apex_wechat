@@ -1,7 +1,9 @@
 import 'package:apex_wechat/model/bootstrap_model.dart';
+import 'package:apex_wechat/pages/heroDetails/index.dart';
 import 'package:apex_wechat/provider/hero_provider.dart';
 import 'package:apex_wechat/utils/instances.dart';
 import 'package:flutter/widgets.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
 class ApexHeroListView extends StatelessWidget {
@@ -44,27 +46,35 @@ class ApexHeroListView extends StatelessWidget {
     for (var i = 0; i < list.length; i++) {
       for (var k = 0; k < list[i].heroes.length; k++) {
         if (id == list[i].id) {
-          item.add(Container(
-            child: Column(
-              children: [
-                SizedBox(
-                  child: Image.network(
-                    list[i].heroes[k].heroImg,
-                    fit: BoxFit.cover,
+          item.add(GestureDetector(
+            child: Container(
+              child: Column(
+                children: [
+                  SizedBox(
+                    child: Image.network(
+                      list[i].heroes[k].heroImg,
+                      fit: BoxFit.cover,
+                    ),
+                    height: 147,
+                    width: MediaQuery.of(currentContext!).size.width / 3.5,
                   ),
-                  height: 147,
-                  width: MediaQuery.of(currentContext!).size.width / 3.5,
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Text(list[i].heroes[k].heroName,
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: Color(0xff585858),
-                    )),
-              ],
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Text(list[i].heroes[k].heroName,
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Color(0xff585858),
+                      )),
+                ],
+              ),
             ),
+            onTap: () {
+              Get.to(() => HeroDetails(
+                    id: list[i].heroes[k].id,
+                    name: list[i].heroes[k].heroName,
+                  ));
+            },
           ));
         }
       }

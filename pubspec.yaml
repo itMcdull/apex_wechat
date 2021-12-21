@@ -13,6 +13,8 @@ dependencies:
   dio: ^4.0.0
   shared_preferences: ^2.0.8
   provider: ^6.0.1
+  date_format: ^2.0.4
+  get: ^4.3.8
 dependency_overrides:
   flutter: "0.10.3"
   mpcore: "0.10.3"
