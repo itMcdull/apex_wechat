@@ -5,6 +5,7 @@ class ApexTabbarView extends StatefulWidget {
   final List<String> tab;
   final List<Widget> children;
   final bool isDivider;
+  final bool isImage;
   final Function(int index)? onTap;
   ApexTabbarView({
     Key? key,
@@ -12,6 +13,7 @@ class ApexTabbarView extends StatefulWidget {
     required this.children,
     this.onTap,
     this.isDivider = true,
+    this.isImage = false,
   }) : super(key: key);
 
   @override
@@ -29,6 +31,7 @@ class _ApexTabbarViewState extends State<ApexTabbarView> {
   ///[tabbar]
   _randerItem() {
     List<Widget> item = [];
+
     for (var i = 0; i < widget.tab.length; i++) {
       item.add(Expanded(
           child: GestureDetector(
@@ -42,13 +45,20 @@ class _ApexTabbarViewState extends State<ApexTabbarView> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
-              widget.tab[i],
-              style: TextStyle(
-                  color:
-                      currentIndex == i ? Color(0xff3C3C3C) : Color(0xff969696),
-                  fontSize: 16),
-            ),
+            !widget.isImage
+                ? Text(
+                    widget.tab[i],
+                    style: TextStyle(
+                        color: currentIndex == i
+                            ? Color(0xff3C3C3C)
+                            : Color(0xff969696),
+                        fontSize: 16),
+                  )
+                : Image.network(
+                    widget.tab[i],
+                    width: 20,
+                    height: 20,
+                  ),
             SizedBox(height: 5),
             Opacity(
                 opacity: currentIndex == i ? 1 : 0,

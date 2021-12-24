@@ -9,7 +9,6 @@ class HeadlinesControl {
   static getData() async {
     await Call.dispatch('/article/latest').then((result) {
       if (result['code'] == 0) {
-        print(result);
         Provider.of<NewsProvider>(currentContext!, listen: false)
             .setHero(HeadlinesModel.fromJson(result));
       }
