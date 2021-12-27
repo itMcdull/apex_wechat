@@ -1,7 +1,9 @@
 import 'package:apex_wechat/model/hero_details_model.dart';
 import 'package:apex_wechat/pages/heroDetails/control.dart';
+import 'package:apex_wechat/pages/heroDetails/widgets/skin_page.dart';
 import 'package:apex_wechat/widgets/apex_expand_tile.dart';
 import 'package:apex_wechat/widgets/apex_tabbar.dart';
+import 'package:apex_wechat/widgets/view_potot.dart';
 import 'package:flutter/widgets.dart';
 import 'package:mpcore/mpcore.dart';
 import 'package:simple_html_css/simple_html_css.dart';
@@ -19,12 +21,12 @@ class HeroDetails extends StatefulWidget {
 class _HeroDetailsState extends State<HeroDetails> {
   HeroDetailsModel? _heroDetailsModel;
   List<Map<String, dynamic>> _baseInfo = [];
+  List<Levels> _skinList = [];
 
   @override
   void initState() {
     super.initState();
     _getData();
-    print(widget.id);
   }
 
   _getData() {
@@ -42,6 +44,11 @@ class _HeroDetailsState extends State<HeroDetails> {
             {'title': '家园', 'value': _heroDetailsModel!.data.homeland},
             {'title': '移速', 'value': _heroDetailsModel!.data.moveSpeed},
           ];
+          for (var i = 0; i < _heroDetailsModel!.data.attrs.length; i++) {
+            if (_heroDetailsModel!.data.attrs[i].type == 1) {
+              _skinList = _heroDetailsModel!.data.attrs[i].levels;
+            }
+          }
           if (!mounted) return;
           setState(() {});
         });
@@ -84,6 +91,10 @@ class _HeroDetailsState extends State<HeroDetails> {
                     _banners('英雄技能'),
                     _heroSkill,
                     _banners('皮肤'),
+                    SkinWidgetPage(skin: _skinList),
+                    SizedBox(
+                      height: 200,
+                    )
                   ],
                 ),
         ));
@@ -161,6 +172,7 @@ class _HeroDetailsState extends State<HeroDetails> {
                         children: [
                           Text(
                             e['value'],
+                            maxLines: 1,
                             style: TextStyle(
                                 color: Color(0xff585858),
                                 fontSize: e['value'].length > 6 ? 10 : 12),
@@ -179,7 +191,7 @@ class _HeroDetailsState extends State<HeroDetails> {
                           ),
                         ],
                       ),
-                      width: MediaQuery.of(context).size.width / 4.66,
+                      width: MediaQuery.of(context).size.width / 4.8,
                     ))
                 .toList()),
       );
@@ -256,7 +268,7 @@ class _HeroDetailsState extends State<HeroDetails> {
                 _heroDetailsModel!.data.backStory,
                 defaultTextStyle: TextStyle(
                   color: Color(0xff585858),
-                  fontSize: 8,
+                  fontSize: 10,
                   // etc etc
                 ),
               ),
