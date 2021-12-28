@@ -44,17 +44,17 @@ class ApexMapListView extends StatelessWidget {
       for (var k = 0; k < list[i].items.length; k++) {
         if (id == list[i].type) {
           item.add(Container(
-            height: 160,
+            height: 140,
             // decoration: BoxDecoration(
             //     color: Color(0xffeeeeee),
             //     borderRadius: BorderRadius.all(Radius.circular(10))),
-            width: MediaQuery.of(currentContext!).size.width / 2.2,
+            width: MediaQuery.of(currentContext!).size.width / 2.3,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Container(
-                  height: 120,
-                  width: MediaQuery.of(currentContext!).size.width / 2.2,
+                  height: 100,
+                  width: MediaQuery.of(currentContext!).size.width / 2.3,
                   child: ClipRRect(
                     // borderRadius: BorderRadius.only(
                     //     topLeft: Radius.circular(12),

@@ -1,9 +1,9 @@
 import 'package:apex_wechat/model/hero_details_model.dart';
 import 'package:apex_wechat/pages/heroDetails/control.dart';
+import 'package:apex_wechat/pages/heroDetails/widgets/frame_page.dart';
 import 'package:apex_wechat/pages/heroDetails/widgets/skin_page.dart';
 import 'package:apex_wechat/widgets/apex_expand_tile.dart';
 import 'package:apex_wechat/widgets/apex_tabbar.dart';
-import 'package:apex_wechat/widgets/view_potot.dart';
 import 'package:flutter/widgets.dart';
 import 'package:mpcore/mpcore.dart';
 import 'package:simple_html_css/simple_html_css.dart';
@@ -22,7 +22,8 @@ class _HeroDetailsState extends State<HeroDetails> {
   HeroDetailsModel? _heroDetailsModel;
   List<Map<String, dynamic>> _baseInfo = [];
   List<Levels> _skinList = [];
-
+  List<Levels> _frameList = [];
+  List<Levels> _parachute = [];
   @override
   void initState() {
     super.initState();
@@ -34,6 +35,8 @@ class _HeroDetailsState extends State<HeroDetails> {
         value: widget.id,
         onSuccess: (value) {
           _heroDetailsModel = value;
+          List<Levels> jumping = [];
+          List<Levels> ults = [];
           _baseInfo = [
             {'title': '姓名', 'value': _heroDetailsModel!.data.realName},
             {'title': '性别', 'value': _sexFilter(_heroDetailsModel!.data.sex)},
@@ -47,8 +50,18 @@ class _HeroDetailsState extends State<HeroDetails> {
           for (var i = 0; i < _heroDetailsModel!.data.attrs.length; i++) {
             if (_heroDetailsModel!.data.attrs[i].type == 1) {
               _skinList = _heroDetailsModel!.data.attrs[i].levels;
+            } else if (_heroDetailsModel!.data.attrs[i].type == 3) {
+              _frameList = _heroDetailsModel!.data.attrs[i].levels;
+            }
+            if (_heroDetailsModel!.data.attrs[i].type == 4) {
+              jumping = _heroDetailsModel!.data.attrs[i].levels;
+            }
+            if (_heroDetailsModel!.data.attrs[i].type == 5) {
+              ults = _heroDetailsModel!.data.attrs[i].levels;
             }
           }
+          _parachute.addAll(jumping);
+          _parachute.addAll(ults);
           if (!mounted) return;
           setState(() {});
         });
@@ -92,13 +105,32 @@ class _HeroDetailsState extends State<HeroDetails> {
                     _heroSkill,
                     _banners('皮肤'),
                     SkinWidgetPage(skin: _skinList),
-                    SizedBox(
-                      height: 200,
-                    )
+                    _banners('边框'),
+                    SkinWidgetPage(skin: _frameList),
+                    _banners('跳伞动作/终结技'),
+                    JumpWidgetPage(skin: _parachute),
+                    _banners('战略'),
+                    _strategy,
                   ],
                 ),
         ));
   }
+
+  /// 战略
+  Widget get _strategy => Container(
+        child: Builder(
+          builder: (context) {
+            return RichText(
+              text: HTML.toTextSpan(
+                context,
+                _heroDetailsModel!.data.strategy,
+                defaultTextStyle:
+                    TextStyle(color: Color(0xff585858), fontSize: 12),
+              ),
+            );
+          },
+        ),
+      );
 
   /// 座右铭
   Widget get _motto => Container(
