@@ -1,6 +1,7 @@
 import 'package:apex_wechat/pages/encyclopedia/index.dart';
 import 'package:apex_wechat/pages/headlines/index.dart';
 import 'package:apex_wechat/pages/mine/index.dart';
+import 'package:apex_wechat/pages/shop/index.dart';
 import 'package:apex_wechat/utils/instances.dart';
 import 'package:flutter/widgets.dart';
 import 'package:mpcore/mpkit/mpkit.dart';
@@ -14,6 +15,13 @@ List<Map<String, dynamic>> _tabBarData = [
       title: '百科',
     ),
     "icon": MaterialIcons.home
+  },
+  {
+    "title": '商店',
+    'page': ShopPage(
+      title: '商店',
+    ),
+    "icon": MaterialIcons.shop
   },
   {
     "title": '头条',
@@ -82,7 +90,7 @@ class _MainTabViewPageState extends State<MainTabViewPage> {
     required bool actived,
   }) {
     return Container(
-        width: MediaQuery.of(currentContext!).size.width / 3,
+        width: MediaQuery.of(currentContext!).size.width / _tabBarData.length,
         color: Color(0xffeeeeee),
         height: 56,
         child: Column(
