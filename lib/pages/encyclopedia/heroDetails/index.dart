@@ -1,8 +1,7 @@
 import 'package:apex_wechat/model/hero_details_model.dart';
-import 'package:apex_wechat/pages/heroDetails/control.dart';
-import 'package:apex_wechat/pages/heroDetails/widgets/frame_page.dart';
-import 'package:apex_wechat/pages/heroDetails/widgets/skin_page.dart';
-import 'package:apex_wechat/widgets/apex_expand_tile.dart';
+import 'package:apex_wechat/pages/encyclopedia/heroDetails/control.dart';
+import 'package:apex_wechat/pages/encyclopedia/heroDetails/widgets/frame_page.dart';
+import 'package:apex_wechat/pages/encyclopedia/heroDetails/widgets/skin_page.dart';
 import 'package:apex_wechat/widgets/apex_tabbar.dart';
 import 'package:flutter/widgets.dart';
 import 'package:mpcore/mpcore.dart';
@@ -60,6 +59,7 @@ class _HeroDetailsState extends State<HeroDetails> {
               ults = _heroDetailsModel!.data.attrs[i].levels;
             }
           }
+
           _parachute.addAll(jumping);
           _parachute.addAll(ults);
           if (!mounted) return;
@@ -111,6 +111,8 @@ class _HeroDetailsState extends State<HeroDetails> {
                     JumpWidgetPage(skin: _parachute),
                     _banners('战略'),
                     _strategy,
+                    _banners('历史更新'),
+                    _historyUpdate,
                   ],
                 ),
         ));
@@ -118,12 +120,30 @@ class _HeroDetailsState extends State<HeroDetails> {
 
   /// 战略
   Widget get _strategy => Container(
+        padding: EdgeInsets.all(10),
         child: Builder(
           builder: (context) {
             return RichText(
               text: HTML.toTextSpan(
                 context,
                 _heroDetailsModel!.data.strategy,
+                defaultTextStyle:
+                    TextStyle(color: Color(0xff585858), fontSize: 12),
+              ),
+            );
+          },
+        ),
+      );
+
+  /// 战略
+  Widget get _historyUpdate => Container(
+        padding: EdgeInsets.all(10),
+        child: Builder(
+          builder: (context) {
+            return RichText(
+              text: HTML.toTextSpan(
+                context,
+                _heroDetailsModel!.data.historyUpdate,
                 defaultTextStyle:
                     TextStyle(color: Color(0xff585858), fontSize: 12),
               ),
@@ -263,49 +283,55 @@ class _HeroDetailsState extends State<HeroDetails> {
   }
 
   /// 背景故事
-  Widget get _herodescribe => TolyExpandTile(
-        titleWidget: Container(
-            height: 40,
-            child: Row(
-              children: [
-                SizedBox(
-                  height: 20,
-                  width: 20,
-                  child: Image.asset(
-                    'assets/images/logo_icon.png',
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                SizedBox(
-                  width: 10,
-                ),
-                // Text(
-                //   _heroDetailsModel!.data.heroName,
-                //   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                // ),
-                // SizedBox(
-                //   width: 20,
-                // ),
-                Text(
-                  '背景故事',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                ),
-              ],
-            )),
-        content: Builder(
-          builder: (context) {
-            return RichText(
-              text: HTML.toTextSpan(
-                context,
-                _heroDetailsModel!.data.backStory,
-                defaultTextStyle: TextStyle(
-                  color: Color(0xff585858),
-                  fontSize: 10,
-                  // etc etc
-                ),
+  Widget get _herodescribe => Container(
+        color: Colors.white,
+        child: Column(
+          children: [
+            Container(
+                height: 40,
+                padding: EdgeInsets.all(10),
+                child: Row(
+                  children: [
+                    SizedBox(
+                      height: 20,
+                      width: 20,
+                      child: Image.asset(
+                        'assets/images/logo_icon.png',
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Text(
+                      '背景故事',
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                )),
+            Container(
+              padding: EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                  border: Border(
+                      top: BorderSide(color: Color(0xffeeeeee), width: 2))),
+              child: Builder(
+                builder: (context) {
+                  return RichText(
+                    text: HTML.toTextSpan(
+                      context,
+                      _heroDetailsModel!.data.backStory,
+                      defaultTextStyle: TextStyle(
+                        color: Color(0xff585858),
+                        fontSize: 10,
+                        // etc etc
+                      ),
+                    ),
+                  );
+                },
               ),
-            );
-          },
+            )
+          ],
         ),
       );
 

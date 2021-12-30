@@ -43,13 +43,11 @@ class _ShopAllPageState extends State<ShopAllPage> {
             Consumer(builder:
                 (BuildContext context, HeroProvider state, Widget? widgets) {
               return Container(
-                  alignment: Alignment.center,
                   child: Wrap(
-                    runSpacing: 10,
-                    spacing: 10,
-                    children:
-                        _renderItem(state.bootstrapModel!.data.shop.topics),
-                  ));
+                runSpacing: 10,
+                spacing: 10,
+                children: _renderItem(state.bootstrapModel!.data.shop.topics),
+              ));
             })
           ],
         ),

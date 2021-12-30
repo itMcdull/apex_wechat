@@ -2,26 +2,28 @@ import 'package:apex_wechat/widgets/apex_tabbar.dart';
 import 'package:flutter/widgets.dart';
 import 'package:universal_miniprogram_api/wechat_mini_program/map_view.dart';
 
-class JumpWidgetPage extends StatefulWidget {
+class SkinWidgetPage extends StatefulWidget {
   final List skin;
-  JumpWidgetPage({Key? key, required this.skin}) : super(key: key);
+  SkinWidgetPage({Key? key, required this.skin}) : super(key: key);
 
   @override
-  _JumpWidgetPageState createState() => _JumpWidgetPageState();
+  _SkinWidgetPageState createState() => _SkinWidgetPageState();
 }
 
-class _JumpWidgetPageState extends State<JumpWidgetPage> {
-  List<Map<String, dynamic>> _jumpList = [
-    {'title': '终结技', 'type': 2},
-    {'title': '跳伞动作', 'type': 0},
+class _SkinWidgetPageState extends State<SkinWidgetPage> {
+  List<Map<String, dynamic>> _attrsList = [
+    {'title': '传说', 'type': 2},
+    {'title': '史诗', 'type': 3},
+    {'title': '稀有', 'type': 4},
+    {'title': '普通', 'type': 5},
   ];
   @override
   Widget build(BuildContext context) {
     return ApexTabbarView(
-        key: ValueKey('jumping'),
-        tab: _jumpList.map<String>((e) => e['title']).toList(),
+        key: ValueKey('pifu'),
+        tab: _attrsList.map<String>((e) => e['title']).toList(),
         children:
-            _jumpList.map<Widget>((e) => _renderSkilItem(e['type'])).toList());
+            _attrsList.map<Widget>((e) => _renderSkilItem(e['type'])).toList());
   }
 
   _renderSkilItem(int type) {
@@ -39,15 +41,15 @@ class _JumpWidgetPageState extends State<JumpWidgetPage> {
             },
             child: Container(
                 decoration: BoxDecoration(
+                    color: Colors.white,
                     image: DecorationImage(
                       fit: BoxFit.cover,
                       image: AssetImage('assets/images/logo.png'),
                     ),
-                    color: Colors.white,
                     borderRadius: BorderRadius.all(Radius.circular(10))),
                 margin: EdgeInsets.symmetric(horizontal: 5),
-                width: MediaQuery.of(context).size.width / 1.5,
-                height: 200,
+                width: MediaQuery.of(context).size.width / 2.42,
+                height: 250,
                 child: Stack(
                   alignment: AlignmentDirectional.bottomEnd,
                   children: [
@@ -55,43 +57,37 @@ class _JumpWidgetPageState extends State<JumpWidgetPage> {
                       borderRadius: BorderRadius.circular(10),
                       child: Image.network(
                         widget.skin[i].items[k].attrImg,
-                        fit: BoxFit.contain,
+                        // fit: type == 3 ? BoxFit.fill : BoxFit.cover,
                       ),
                     ),
                     Positioned(
                         child: Container(
-                      width: MediaQuery.of(context).size.width / 1.5,
-                      height: 50,
+                      width: MediaQuery.of(context).size.width / 2,
+                      height: 70,
                       padding: EdgeInsets.all(10),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              SizedBox(
-                                height: 20,
-                                child: Text(
-                                  widget.skin[i].items[k].attrName,
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 14),
-                                ),
-                              ),
-                              SizedBox(
-                                height: 15,
-                                child: Text(
-                                  widget.skin[i].items[k].attrDesc +
-                                      '' +
-                                      widget.skin[i].items[k].attrFeature,
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 10),
-                                ),
-                              ),
-                            ],
+                          SizedBox(
+                            height: 20,
+                            child: Text(
+                              widget.skin[i].items[k].attrName,
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 14),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 15,
+                            child: Text(
+                              widget.skin[i].items[k].attrDesc +
+                                  '' +
+                                  widget.skin[i].items[k].attrFeature,
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 10),
+                            ),
                           ),
                           _priceRender(
                               coin: widget.skin[i].items[k].coin,

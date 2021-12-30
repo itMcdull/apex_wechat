@@ -1,5 +1,5 @@
 import 'package:apex_wechat/model/bootstrap_model.dart';
-import 'package:apex_wechat/pages/heroDetails/index.dart';
+import 'package:apex_wechat/pages/encyclopedia/heroDetails/index.dart';
 import 'package:apex_wechat/provider/hero_provider.dart';
 import 'package:apex_wechat/utils/instances.dart';
 import 'package:flutter/widgets.dart';

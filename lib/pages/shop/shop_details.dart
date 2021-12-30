@@ -35,32 +35,32 @@ class _ShopDetailsPageState extends State<ShopDetailsPage> {
     return MPScaffold(
       name: widget.name,
       body: Container(
-        child: ListView(
-          children: [
-            Container(
-              margin: EdgeInsets.symmetric(vertical: 10),
-              padding: EdgeInsets.symmetric(horizontal: 8),
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage('assets/images/banners.png'),
-                    fit: BoxFit.cover),
-              ),
-              height: 60,
-              alignment: Alignment.centerLeft,
-              child: Text(
-                widget.name,
-                style: TextStyle(fontSize: 16, color: Colors.white),
-              ),
-            ),
-            _shopDatailsModel == null
-                ? Center(
-                    child: Container(
-                      width: MediaQuery.of(context).size.width,
-                      height: MediaQuery.of(context).size.height,
-                      child: Image.asset('assets/images/loading.svg'),
+        child: _shopDatailsModel == null
+            ? Center(
+                child: Container(
+                  width: 120,
+                  height: 120,
+                  child: Image.asset('assets/images/loading.svg'),
+                ),
+              )
+            : ListView(
+                children: [
+                  Container(
+                    margin: EdgeInsets.symmetric(vertical: 10),
+                    padding: EdgeInsets.symmetric(horizontal: 8),
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                          image: AssetImage('assets/images/banners.png'),
+                          fit: BoxFit.cover),
                     ),
-                  )
-                : Column(
+                    height: 60,
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      widget.name,
+                      style: TextStyle(fontSize: 16, color: Colors.white),
+                    ),
+                  ),
+                  Column(
                     children: _shopDatailsModel!.data.contentPics
                         .map<Widget>(
                           (e) => GestureDetector(
@@ -79,11 +79,11 @@ class _ShopDetailsPageState extends State<ShopDetailsPage> {
                         )
                         .toList(),
                   ),
-            SizedBox(
-              height: 200,
-            )
-          ],
-        ),
+                  SizedBox(
+                    height: 200,
+                  )
+                ],
+              ),
       ),
     );
   }

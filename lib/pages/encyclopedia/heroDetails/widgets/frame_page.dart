@@ -2,35 +2,33 @@ import 'package:apex_wechat/widgets/apex_tabbar.dart';
 import 'package:flutter/widgets.dart';
 import 'package:universal_miniprogram_api/wechat_mini_program/map_view.dart';
 
-class SkinWidgetPage extends StatefulWidget {
+class JumpWidgetPage extends StatefulWidget {
   final List skin;
-  SkinWidgetPage({Key? key, required this.skin}) : super(key: key);
+  JumpWidgetPage({Key? key, required this.skin}) : super(key: key);
 
   @override
-  _SkinWidgetPageState createState() => _SkinWidgetPageState();
+  _JumpWidgetPageState createState() => _JumpWidgetPageState();
 }
 
-class _SkinWidgetPageState extends State<SkinWidgetPage> {
-  List<Map<String, dynamic>> _attrsList = [
-    {'title': '传说', 'type': 2},
-    {'title': '史诗', 'type': 3},
-    {'title': '稀有', 'type': 4},
-    {'title': '普通', 'type': 5},
+class _JumpWidgetPageState extends State<JumpWidgetPage> {
+  List<Map<String, dynamic>> _jumpList = [
+    {'title': '终结技', 'type': 4},
+    {'title': '跳伞动作', 'type': 5},
   ];
   @override
   Widget build(BuildContext context) {
     return ApexTabbarView(
-        key: ValueKey('pifu'),
-        tab: _attrsList.map<String>((e) => e['title']).toList(),
+        key: ValueKey('jumping'),
+        tab: _jumpList.map<String>((e) => e['title']).toList(),
         children:
-            _attrsList.map<Widget>((e) => _renderSkilItem(e['type'])).toList());
+            _jumpList.map<Widget>((e) => _renderSkilItem(e['type'])).toList());
   }
 
   _renderSkilItem(int type) {
     List<Widget> item = [];
     for (var i = 0; i < widget.skin.length; i++) {
       for (var k = 0; k < widget.skin[i].items.length; k++) {
-        if (widget.skin[i].items[k].level == type) {
+        if (widget.skin[i].items[k].type == type) {
           item.add(UnconstrainedBox(
               child: GestureDetector(
             onTap: () {
@@ -41,15 +39,15 @@ class _SkinWidgetPageState extends State<SkinWidgetPage> {
             },
             child: Container(
                 decoration: BoxDecoration(
-                    color: Colors.white,
                     image: DecorationImage(
                       fit: BoxFit.cover,
                       image: AssetImage('assets/images/logo.png'),
                     ),
+                    color: Colors.white,
                     borderRadius: BorderRadius.all(Radius.circular(10))),
                 margin: EdgeInsets.symmetric(horizontal: 5),
-                width: MediaQuery.of(context).size.width / 2,
-                height: 250,
+                width: MediaQuery.of(context).size.width / 1.5,
+                height: 200,
                 child: Stack(
                   alignment: AlignmentDirectional.bottomEnd,
                   children: [
@@ -57,37 +55,43 @@ class _SkinWidgetPageState extends State<SkinWidgetPage> {
                       borderRadius: BorderRadius.circular(10),
                       child: Image.network(
                         widget.skin[i].items[k].attrImg,
-                        // fit: type == 3 ? BoxFit.fill : BoxFit.cover,
+                        fit: BoxFit.contain,
                       ),
                     ),
                     Positioned(
                         child: Container(
-                      width: MediaQuery.of(context).size.width / 2,
-                      height: 70,
+                      width: MediaQuery.of(context).size.width / 1.5,
+                      height: 50,
                       padding: EdgeInsets.all(10),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                      child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          SizedBox(
-                            height: 20,
-                            child: Text(
-                              widget.skin[i].items[k].attrName,
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 14),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 15,
-                            child: Text(
-                              widget.skin[i].items[k].attrDesc +
-                                  '' +
-                                  widget.skin[i].items[k].attrFeature,
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 10),
-                            ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              SizedBox(
+                                height: 20,
+                                child: Text(
+                                  widget.skin[i].items[k].attrName,
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 14),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 15,
+                                child: Text(
+                                  widget.skin[i].items[k].attrDesc +
+                                      '' +
+                                      widget.skin[i].items[k].attrFeature,
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 10),
+                                ),
+                              ),
+                            ],
                           ),
                           _priceRender(
                               coin: widget.skin[i].items[k].coin,
