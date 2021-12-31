@@ -15,7 +15,7 @@ dependencies:
   provider: ^6.0.1
   date_format: ^2.0.4
   get: ^4.3.8
-  simple_html_css: ^3.0.1
+  simple_html_css: ^3.0.1+1
   universal_miniprogram_api: ^0.0.1
 dependency_overrides:
   flutter: "0.11.0"

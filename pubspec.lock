@@ -280,7 +280,7 @@ packages:
       name: simple_html_css
       url: "https://pub.mpflutter.com"
     source: hosted
-    version: "3.0.1"
+    version: "3.0.1+1"
   source_span:
     dependency: transitive
     description:

@@ -1,7 +1,9 @@
 import 'package:apex_wechat/pages/headlines/control.dart';
+import 'package:apex_wechat/pages/headlines/headDatails/index.dart';
 import 'package:apex_wechat/provider/news_provider.dart';
 import 'package:apex_wechat/utils/time_format.dart';
 import 'package:flutter/widgets.dart';
+import 'package:get/get.dart';
 import 'package:mpcore/mpcore.dart';
 import 'package:provider/provider.dart';
 
@@ -18,6 +20,8 @@ class _HeadlinesPageState extends State<HeadlinesPage> {
   void initState() {
     super.initState();
     HeadlinesControl.getData();
+    if (!mounted) return;
+    setState(() {});
   }
 
   @override
@@ -33,70 +37,78 @@ class _HeadlinesPageState extends State<HeadlinesPage> {
                 child: Column(
                     children: (state.headlinesModel?.data.lists ?? [])
                         .map<Widget>((e) {
-                  return Container(
-                    margin: EdgeInsets.only(bottom: 10),
-                    width: MediaQuery.of(context).size.width,
-                    height: 110,
-                    decoration: BoxDecoration(
-                        border: Border(
-                            left: BorderSide(
-                                color: Color.fromRGBO(221, 0, 0, 1),
-                                width: 5))),
-                    child: Row(
-                      children: [
-                        Expanded(
-                            child: Container(
-                          color: Colors.black,
-                          padding: EdgeInsets.all(15),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                e.title,
-                                style: TextStyle(
-                                    fontSize: 14, color: Colors.white),
-                              ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    TimeFormat.dateFormat(e.createTime),
-                                    style: TextStyle(
-                                        fontSize: 10, color: Colors.white),
-                                  ),
-                                  Row(
-                                    children: [
-                                      MPIcon(
-                                        MaterialIcons.message,
-                                        color: Colors.white,
-                                        size: 14,
-                                      ),
-                                      SizedBox(
-                                        width: 5,
-                                      ),
-                                      Text(
-                                        (e.commentCount ?? '0').toString(),
-                                        style: TextStyle(
-                                            fontSize: 10, color: Colors.white),
-                                      ),
-                                    ],
-                                  )
-                                ],
-                              )
-                            ],
-                          ),
-                        )),
-                        Expanded(
-                            child: SizedBox(
-                          height: 110,
-                          child: Image.network(
-                            e.coverImg,
-                            fit: BoxFit.cover,
-                          ),
-                        )),
-                      ],
+                  return GestureDetector(
+                    onTap: () {
+                      Get.to(() => HeadlinesDetailsPage(
+                            id: e.id,
+                          ));
+                    },
+                    child: Container(
+                      margin: EdgeInsets.only(bottom: 10),
+                      width: MediaQuery.of(context).size.width,
+                      height: 110,
+                      decoration: BoxDecoration(
+                          border: Border(
+                              left: BorderSide(
+                                  color: Color.fromRGBO(221, 0, 0, 1),
+                                  width: 5))),
+                      child: Row(
+                        children: [
+                          Expanded(
+                              child: Container(
+                            color: Colors.black,
+                            padding: EdgeInsets.all(15),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  e.title,
+                                  style: TextStyle(
+                                      fontSize: 14, color: Colors.white),
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      TimeFormat.dateFormat(e.createTime),
+                                      style: TextStyle(
+                                          fontSize: 10, color: Colors.white),
+                                    ),
+                                    Row(
+                                      children: [
+                                        MPIcon(
+                                          MaterialIcons.message,
+                                          color: Colors.white,
+                                          size: 14,
+                                        ),
+                                        SizedBox(
+                                          width: 5,
+                                        ),
+                                        Text(
+                                          (e.commentCount ?? '0').toString(),
+                                          style: TextStyle(
+                                              fontSize: 10,
+                                              color: Colors.white),
+                                        ),
+                                      ],
+                                    )
+                                  ],
+                                )
+                              ],
+                            ),
+                          )),
+                          Expanded(
+                              child: SizedBox(
+                            height: 110,
+                            child: Image.network(
+                              e.coverImg,
+                              fit: BoxFit.cover,
+                            ),
+                          )),
+                        ],
+                      ),
                     ),
                   );
                 }).toList()),
