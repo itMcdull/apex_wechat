@@ -14,28 +14,32 @@ List<Map<String, dynamic>> _tabBarData = [
     'page': EncyclopediaPage(
       title: '百科',
     ),
-    "icon": MaterialIcons.home
+    "icon": 'assets/images/baike.svg',
+    "icon_active": 'assets/images/baike_active.svg'
   },
   {
     "title": '商店',
     'page': ShopPage(
       title: '商店',
     ),
-    "icon": MaterialIcons.shop
+    "icon": 'assets/images/shandian.svg',
+    "icon_active": 'assets/images/shandian_active.svg'
   },
   {
     "title": '头条',
     "page": HeadlinesPage(
       title: '头条',
     ),
-    "icon": MaterialIcons.new_label
+    "icon": 'assets/images/zixun.svg',
+    "icon_active": 'assets/images/zixun_active.svg'
   },
   {
     "title": '我的',
     "page": MinePage(
       title: '我的',
     ),
-    "icon": MaterialIcons.access_time_filled_sharp
+    "icon": 'assets/images/zixun.svg',
+    "icon_active": 'assets/images/zixun_active.svg'
   },
 ];
 
@@ -60,6 +64,7 @@ class _MainTabViewPageState extends State<MainTabViewPage> {
       item.add(bottomBarItem(
           icon: _tabBarData[i]['icon'],
           page: _tabBarData[i]['page'],
+          activeIcon: _tabBarData[i]['icon_active'],
           title: _tabBarData[i]['title']));
     }
     return item;
@@ -67,28 +72,25 @@ class _MainTabViewPageState extends State<MainTabViewPage> {
 
   /// [单个item]
   MPMainTabItem bottomBarItem(
-      {required String title, required Widget page, required String icon}) {
+      {required String title,
+      required Widget page,
+      required String icon,
+      required String activeIcon}) {
     return MPMainTabItem(
       activeTabWidget: renderIcon(
-        icon: icon,
-        title: title,
-        actived: true,
-      ),
+          icon: icon, title: title, actived: true, activeIcon: activeIcon),
       inactiveTabWidget: renderIcon(
-        icon: icon,
-        title: title,
-        actived: false,
-      ),
+          icon: icon, title: title, actived: false, activeIcon: activeIcon),
       builder: (context) => page,
     );
   }
 
   /// [底部图标激活]
-  Widget renderIcon({
-    required String icon,
-    required String title,
-    required bool actived,
-  }) {
+  Widget renderIcon(
+      {required String icon,
+      required String title,
+      required bool actived,
+      required String activeIcon}) {
     return Container(
         width: MediaQuery.of(currentContext!).size.width / _tabBarData.length,
         color: Color(0xffeeeeee),
@@ -97,12 +99,22 @@ class _MainTabViewPageState extends State<MainTabViewPage> {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            MPIcon(icon, color: actived ? Colors.blue : Colors.grey),
+            // MPIcon(icon, color: actived ? Colors.blue : Colors.grey),
+            SizedBox(
+              width: 15,
+              height: 15,
+              child: Image.asset(
+                actived ? activeIcon : icon,
+              ),
+            ),
+            SizedBox(
+              height: 3,
+            ),
             Text(
               title,
               style: TextStyle(
                 fontSize: 12,
-                color: actived ? Colors.blue : Colors.grey,
+                color: actived ? Color(0xff1296db) : Colors.black,
               ),
             ),
           ],

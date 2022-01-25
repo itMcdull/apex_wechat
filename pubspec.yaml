@@ -5,10 +5,10 @@ version: 1.0.0+1
 environment:
   sdk: ">=2.15.0 <3.0.0"
 dependencies:
-  flutter: "0.11.0"
-  flutter_web_plugins: "0.11.0"
-  mpcore: "0.11.0"
-  mp_build_tools: "0.11.0"
+  flutter: "0.11.3"
+  flutter_web_plugins: "0.11.3"
+  mpcore: "0.11.3"
+  mp_build_tools: "0.11.3"
   path_provider: ^2.0.7
   dio: ^4.0.0
   shared_preferences: ^2.0.8
@@ -18,9 +18,9 @@ dependencies:
   simple_html_css: ^3.0.1+1
   universal_miniprogram_api: ^0.0.1
 dependency_overrides:
-  flutter: "0.11.0"
-  mpcore: "0.11.0"
-  flutter_web_plugins: "0.11.0"
+  flutter: "0.11.3"
+  mpcore: "0.11.3"
+  flutter_web_plugins: "0.11.3"
 flutter:
   assets:
     - assets/images/
